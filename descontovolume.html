@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivo Máscara Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #6A0DAD;
+            color: #fff;
+            position: relative;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #000;
+        }
+        h1 {
+            text-align: center;
+            color: #000;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #FF4500;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">Voltar</a>
+    <div class="container">
+        <h1>Vivo Máscara Cliente</h1>
+        <form id="mascaraForm">
+            <label for="CNPJ">CNPJ:</label>
+            <input type="text" id="CNPJ" name="CNPJ" required onpaste="preencherCampos(event)">
+
+            <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
+            <input type="text" id="RAZAOSOCIAL" name="RAZÃO_SOCIAL" required>
+
+            <label for="NOMEEMPRESARIAL">NOME EMPRESARIAL:</label>
+            <input type="text" id="NOMEEMPRESARIAL" name="NOME_EMPRESARIAL" required>
+
+            <label for="NOMEFANTASIA">NOME FANTASIA:</label>
+            <input type="text" id="NOMEFANTASIA" name="NOME_FANTASIA" required>
+
+            <label for="CNPJ">CEP:</label>
+            <input type="text" id="CEP" name="CEP" required>
+
+            <label for="MUNICIPIO">MUNICÍPIO:</label>
+            <input type="text" id="MUNICIPIO" name="MUNICÍPIO" required>
+
+            <label for="UF">UF:</label>
+            <input type="text" id="UF" name="UF" required>
+
+            <label for="EMAIL">E-MAIL:</label>
+            <input type="text" id="EMAIL" name="EMAIL" required>
+
+            <label for="TEL">TELEFONE:</label>
+            <input type="text" id="TEL" name="TELEFONE" required>
+
+            <div class="actions">
+                <button type="button" onclick="extrairMascara()">Extrair Máscara</button>
+                <button type="button" onclick="copiarInformacao()">Copiar Informação</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function preencherCampos(event) {
+            // Previne a colagem de conteúdo inesperado
+            event.preventDefault();
+
+            // Pega os dados colados
+            const dadosCNPJ = event.clipboardData.getData("text");
+
+            // Agora, vamos usar uma expressão regular para extrair as informações do texto
+            const regex = /CNPJ:(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})\s*RAZÃO\s*SOCIAL:([^<]+)\s*NOME\s*EMPRESARIAL:([^<]+)\s*NOME\s*FANTASIA:([^<]+)\s*CEP:(\d{5}-\d{3})\s*MUNICÍPIO:([^<]+)\s*UF:([A-Z]{2})\s*E-MAIL:([^<]+)\s*TELEFONE:([^<]+)/;
+
+            const match = dadosCNPJ.match(regex);
+
+            if (match) {
+                // Preencher os campos do formulário com os dados extraídos
+                document.getElementById('CNPJ').value = match[1];
+                document.getElementById('RAZAOSOCIAL').value = match[2];
+                document.getElementById('NOMEEMPRESARIAL').value = match[3];
+                document.getElementById('NOMEFANTASIA').value = match[4];
+                document.getElementById('CEP').value = match[5];
+                document.getElementById('MUNICIPIO').value = match[6];
+                document.getElementById('UF').value = match[7];
+                document.getElementById('EMAIL').value = match[8];
+                document.getElementById('TEL').value = match[9];
+            } else {
+                alert("Formato de dados inválido. Tente novamente.");
+            }
+        }
+
+        function formatarDados() {
+            const form = document.getElementById('mascaraForm');
+            const formData = new FormData(form);
+            let dadosFormatados = '';
+
+            for (const [key, value] of formData.entries()) {
+                dadosFormatados += `${key.toUpperCase()}: ${value}\n`;
+            }
+
+            return dadosFormatados;
+        }
+
+        function extrairMascara() {
+            const form = document.getElementById('mascaraForm');
+            const razaoSocial = form.querySelector('#RAZAOSOCIAL').value;
+            const dados = formatarDados();
+            const blob = new Blob([dados], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${razaoSocial || 'mascara_cliente'}.txt`;
+            link.click();
+        }
+
+        function copiarInformacao() {
+            const dados = formatarDados();
+            navigator.clipboard.writeText(dados)
+                .then(() => alert('Informações copiadas para a área de transferência!'))
+                .catch(err => alert('Erro ao copiar informações: ' + err));
+        }
+    </script>
+</body>
+</html>
