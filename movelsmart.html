@@ -1,174 +1,441 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos Móveis</title>
+    <title>VIVO SMART EMPRESA</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        body, html {
             margin: 0;
             padding: 0;
-            background-color: #6A0DAD;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 20px;
+            height: 100%;
         }
         .container {
-            width: 40%;
-            text-align: left;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 10px; /* Ajuste o valor se necessário */
         }
-        .section {
-            margin-bottom: 20px;
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
-        .section label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .section input[type="number"] {
-            width: 50px;
-            margin-left: 10px;
-        }
-        img {
-            max-width: 50%;
-            height: auto;
-            margin-left: auto;
-            display: block;
-        }
-        #totalPrice {
-            font-weight: bold;
-            margin-top: 20px;
-        }
+
         .benefits {
-            margin-top: 30px;
-            text-align: center;
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 10px; /* Ajuste o valor se necessário */
+            width: 250px; /* Ajuste o tamanho conforme necessário */
         }
-        /* Ocultar as caixas de seleção */
-        .mobile-plan input[type="checkbox"] {
-            display: none;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #6A0DAD;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      width: 40%;
+      text-align: left;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .section input[type="number"] {
+      width: 50px;
+      margin-left: 10px;
+    }
+    #totalPrice {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .benefits {
+      margin-top: 30px;
+      text-align: center;
+    }
+    /* Ocultar as caixas de seleção */
+    .mobile-plan input[type="checkbox"] {
+      display: none;
+    }
+    /* Personalizar o texto para simular uma caixa de seleção */
+    .mobile-plan label {
+      cursor: pointer;
+    }
+    .mobile-plan input[type="checkbox"]:checked + span::before {
+      content: "✓"; /* Marca como selecionado */
+      margin-right: 10px;
+    }
+    .mobile-plan span::before {
+      content: "☐"; /* Caixa de seleção vazia */
+      margin-right: 10px;
+    }
+    /* Estilos para o analisador de plano */
+    .analyzer {
+      width: 60%;
+      margin: 20px auto;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .analyzer label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .analyzer input[type="number"] {
+      width: 100px;
+      padding: 5px;
+      margin-left: 10px;
+    }
+    .analyzer button {
+      padding: 10px;
+      background-color: #fff;
+      color: #6A0DAD;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .suggestion-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      margin: 10px 0;
+      text-align: left;
+    }
+	<head>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
         }
-        /* Personalizar o texto para simular uma caixa de seleção */
-        .mobile-plan label {
+
+        .back-button {
+            background-color: blue; /* Cor inicial do botão */
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
-        .mobile-plan input[type="checkbox"]:checked + span::before {
-            content: "✓"; /* Marca como selecionado */
-            margin-right: 10px;
+
+        .back-button:hover {
+            background-color: green; /* Cor ao passar o mouse */
         }
-        .mobile-plan span::before {
-            content: "☐"; /* Caixa de seleção vazia */
-            margin-right: 10px;
+
+        .back-button .arrow {
+            margin-right: 8px;
         }
     </style>
-    <script>
-        function calculateTotal() {
-            let total = 0;
-            let totalGB = 0;
-            const mobileOptions = document.querySelectorAll('.mobile-plan');
-            const mdm = document.getElementById('mdm');
-            const mdmQuantity = parseInt(document.getElementById('mdm-quantity').value) || 0;
-            const additional1 = document.getElementById('additional1');
-            const additional2 = document.getElementById('additional2');
+</head>
 
-            // Soma os valores dos planos selecionados e os GBs
-            mobileOptions.forEach(option => {
-                const quantity = parseInt(option.querySelector('input[type="number"]').value) || 0;
-                const price = parseFloat(option.querySelector('input[type="checkbox"]').value);
-                const gb = parseInt(option.querySelector('input[type="checkbox"]').dataset.gb);  // Quantidade de GB
-                total += price * quantity; // Multiplica o preço pela quantidade
-                totalGB += gb * quantity; // Soma a quantidade total de GB
-            });
 
-            // Adiciona o custo do MDM (considerando a quantidade selecionada)
-            total += 5 * mdmQuantity;
+<!-- Botão com seta -->
+<button class="back-button" onclick="window.location.href='index.html'">
+    <span class="arrow">&larr;</span> Voltar
+</button>
 
-            // Adiciona os custos dos adicionais e os GBs correspondentes
-            if (additional1.checked) {
-                total += 10;  // Adiciona 10 para o adicional de 10GB + redes sociais
-                totalGB += 10; // Adiciona 10GB ao total
-            }
-            if (additional2.checked) {
-                total += 10;  // Adiciona 10 para o adicional de 10GB + plataformas de streaming
-                totalGB += 10; // Adiciona 10GB ao total
-            }
+</body>
 
-            // Atualiza o título e a imagem de acordo com a seleção
-            if (mdmQuantity > 0) {
-                document.querySelector('h1').textContent = `Móvel Combo + ${mdmQuantity} MDM`;
-                document.querySelector('img').src = "movelsmartmdm.PNG";  // Caminho da imagem com MDM
-            } else {
-                document.querySelector('h1').textContent = "Móvel Planos Smart Empresas";
-                document.querySelector('img').src = "movelsmart.PNG";  // Caminho da imagem sem MDM
-            }
+  </style>
+  <script>
+    function calculateTotal() {
+      let total = 0;
+      let totalGB = 0;
+      const mobileOptions = document.querySelectorAll('.mobile-plan');
+      const mdmQuantity = parseInt(document.getElementById('mdm-quantity').value) || 0;
+      const additional1 = document.getElementById('additional1');
+      const additional2 = document.getElementById('additional2');
 
-            // Exibe o total de preço e o total de GB selecionados
-            document.getElementById('totalPrice').textContent = `Preço Total: R$ ${total.toFixed(2)}`;
-            document.getElementById('totalGB').textContent = `Total de GB: ${totalGB}GB`;
-        }
+      // Soma os valores dos planos selecionados e os GBs
+      mobileOptions.forEach(option => {
+        const quantity = parseInt(option.querySelector('input[type="number"]').value) || 0;
+        const price = parseFloat(option.querySelector('input[type="checkbox"]').value);
+        const gb = parseInt(option.querySelector('input[type="checkbox"]').dataset.gb);  // Quantidade de GB
+        total += price * quantity; // Multiplica o preço pela quantidade
+        totalGB += gb * quantity; // Soma a quantidade total de GB
+      });
 
-        document.addEventListener('change', calculateTotal);
-    </script>
+      // Adiciona o custo do MDM (considerando a quantidade selecionada)
+      total += 5 * mdmQuantity;
+
+      // Adiciona os custos dos adicionais e os GBs correspondentes
+      if (additional1.checked) {
+        total += 10;  // Adiciona 10 para o adicional de 10GB + redes sociais
+        totalGB += 10; // Adiciona 10GB ao total
+      }
+      if (additional2.checked) {
+        total += 10;  // Adiciona 10 para o adicional de 10GB + plataformas de streaming
+        totalGB += 10; // Adiciona 10GB ao total
+      }
+
+      // Atualiza o título e a imagem de acordo com a seleção
+      if (mdmQuantity > 0) {
+        document.querySelector('h1').textContent = `Móvel Combo + ${mdmQuantity} MDM`;
+        document.querySelector('img.changeable').src = "movelsmartmdm.PNG";  // Caminho da imagem com MDM
+      } else {
+        document.querySelector('h1').textContent = "Móvel Planos Smart Empresas";
+        document.querySelector('img.changeable').src = "movelsmart.PNG";  // Caminho da imagem sem MDM
+      }
+
+      // Exibe o total de preço e o total de GB selecionados
+      document.getElementById('totalPrice').textContent = `Preço Total: R$ ${total.toFixed(2)}`;
+      document.getElementById('totalGB').textContent = `Total de GB: ${totalGB}GB`;
+    }
+
+    document.addEventListener('change', calculateTotal);
+  </script>
 </head>
 <body>
-    <a href="index.html" class="back-button">Voltar</a>
-    <div class="container">
-        <h1>Móvel Planos Smart Empresas</h1>
+  <div class="container">
+    <h1>Móvel Planos Smart Empresas</h1>
 
-        <div class="section">
-            <h3>Planos Móveis</h3>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="39.99" data-gb="6"> 6GB - R$ 39,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="54.99" data-gb="15"> 15GB - R$ 54,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="59.99" data-gb="20"> 20GB - R$ 59,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="69.99" data-gb="30"> 30GB - R$ 69,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="79.99" data-gb="40"> 40GB - R$ 79,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="89.99" data-gb="50"> 50GB - R$ 89,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-            <div class="mobile-plan">
-                <label><input type="checkbox" value="99.99" data-gb="100"> 100GB - R$ 99,99 <input type="number" min="0" value="0"><span></span></label>
-            </div>
-        </div>
-
-        <div class="section">
-            <h3>Adicionar MDM</h3>
-            <label><input type="number" id="mdm-quantity" value="0" min="0"> Quantidade de MDM (+ R$ 5 cada)</label>
-        </div>
-
-        <div class="section">
-            <h3>Adicionais</h3>
-            <label><input type="checkbox" id="additional1" value="10.00" data-gb="10"> 10GB + Redes sociais inclusos (+ R$ 10)</label>
-            <label><input type="checkbox" id="additional2" value="10"> 10GB + Plataformas de streaming e vídeos (YouTube, TikTok, etc) (+ R$ 10)</label>
-        </div>
-
-        <h2 id="totalPrice">Preço Total: R$ 0,00</h2>
-        <h3 id="totalGB">Total de GB: 0GB</h3>
+    <div class="section">
+      <h3>Planos Móveis</h3>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="39.99" data-gb="6"> 6GB - R$ 39,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="54.99" data-gb="15"> 15GB - R$ 54,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="59.99" data-gb="20"> 20GB - R$ 59,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="69.99" data-gb="30"> 30GB - R$ 69,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="79.99" data-gb="40"> 40GB - R$ 79,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="89.99" data-gb="50"> 50GB - R$ 89,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="99.99" data-gb="100"> 100GB - R$ 99,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
     </div>
 
-    <img src="https://logopng.com.br/logos/vivo-120.svg" alt="Móvel Planos Smart Empresas">
-
-    <div class="benefits">
-        <h3>Benefícios</h3>
-        <p>Internet ilimitada caso acabe seus GB ela não para.</p>
-        <p>Ligação para todo Brasil e qualquer operadora ilimitado.</p>
-        <p>SMS ilimitado.</p>
-        <p>Proteção de dados caso entre em site duvidoso.</p>
-        <p>REDE SOCIAL ILIMITADO /WhatsApp.</p>
-        <p>Conexão 5G em todo Brasil.</p>
-        <p>Também pode compartilhar sua conexão com amigos que use a Vivo também.</p>
-        <p>Realizar compra de aparelhos tipo telefone ou computadores com a gente na Vivo, com descontos de até 70%.</p>
-        <p>O chip sai de graça e mandamos pro seu endereço e não perde o número.</p>
+    <div class="section">
+      <h3>Adicionar MDM</h3>
+      <label>
+        <input type="number" id="mdm-quantity" value="0" min="0"> Quantidade de MDM (+ R$ 5 cada)
+      </label>
     </div>
+
+    <div class="section">
+      <h3>Adicionais</h3>
+      <label>
+        <input type="checkbox" id="additional1" value="10.00" data-gb="10">
+        10GB + Redes sociais 
+      </label>
+      <label>
+        <input type="checkbox" id="additional2" value="10">
+        10GB + streaming \YouTube\TikTok
+      </label>
+    </div>
+
+    <h2 id="totalPrice">Preço Total: R$ 0,00</h2>
+    <h3 id="totalGB">Total de GB: 0GB</h3>
+  </div>
+
+  <!-- Imagem que será alterada conforme a seleção de MDM -->
+  <img class="changeable" src="movelsmart.PNG" alt="Móvel Planos Smart Empresas" style="max-width:50%; display:block; margin:20px auto;">
+  
+<br>
+<br>
+
+  <!-- Seção do analisador, inserida abaixo da imagem -->
+  <div class="analyzer">
+    <h3>Gerar Plano por Linhas</h3>
+    <label>
+      Valor Pago Atual: 
+      <input type="number" id="valor" min="0" step="0.01" placeholder="Ex: 210">
+    </label>
+    <label>
+      Total de GB: 
+      <input type="number" id="gb" min="0" placeholder="Ex: 70">
+    </label>
+    <label>
+      Quantidade de Linhas: 
+      <input type="number" id="linhas" min="1" value="1">
+    </label>
+    <button onclick="analyzeBestPlan()">ANALISAR MELHOR PLANO</button>
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+
+  <div class="benefits">
+    <h3>Benefícios</h3>
+    <p>Internet ilimitada caso acabe seus GB ela não para.</p>
+    <p>Ligação para todo Brasil e qualquer operadora ilimitado.</p>
+    <p>SMS ilimitado.</p>
+    <p>Proteção de dados caso entre em site duvidoso.</p>
+    <p>REDE SOCIAL ILIMITADO /WhatsApp.</p>
+    <p>Conexão 5G em todo Brasil.</p>
+    <p>Também pode compartilhar sua conexão com amigos que use a Vivo também.</p>
+    <p>Realizar compra de aparelhos tipo telefone ou computadores com a gente na Vivo, com descontos de até 70%.</p>
+    <p>O chip sai de graça e mandamos pro seu endereço e não perde o número.</p>
+  </div>
+
+  <script>
+    // Lista de planos disponíveis para o analisador
+    const plans = [
+      { name: '6GB', gb: 6, price: 39.99 },
+      { name: '15GB', gb: 15, price: 54.99 },
+      { name: '20GB', gb: 20, price: 59.99 },
+      { name: '30GB', gb: 30, price: 69.99 },
+      { name: '40GB', gb: 40, price: 79.99 },
+      { name: '50GB', gb: 50, price: 89.99 },
+      { name: '100GB', gb: 100, price: 99.99 }
+    ];
+
+    // Função para agrupar e resumir uma combinação (ex: "2 linha(s) de 6GB + 1 linha(s) de 100GB")
+    function summarizeCombination(comb) {
+      const summary = {};
+      comb.forEach(plan => {
+        if (!summary[plan.name]) {
+          summary[plan.name] = { count: 0, price: plan.price, gb: plan.gb };
+        }
+        summary[plan.name].count++;
+      });
+      const parts = [];
+      for (const key in summary) {
+        const item = summary[key];
+        parts.push(`${item.count} linha(s) de ${key} (R$ ${item.price.toFixed(2)} c/ ${item.gb}GB)`);
+      }
+      return parts.join(' + ');
+    }
+
+    // Função recursiva para gerar combinações (com repetição) para n linhas.
+    // Usamos o parâmetro "start" para evitar repetições (ordem não importa)
+    function getCombinations(n, start = 0, current = [], all = []) {
+      if (current.length === n) {
+        all.push([...current]);
+        return;
+      }
+      for (let i = start; i < plans.length; i++) {
+        current.push(plans[i]);
+        getCombinations(n, i, current, all);
+        current.pop();
+      }
+      return all;
+    }
+
+    function analyzeBestPlan() {
+      const valor = parseFloat(document.getElementById('valor').value) || 0;
+      const gbTotal = parseInt(document.getElementById('gb').value) || 0;
+      const linhas = parseInt(document.getElementById('linhas').value) || 1;
+      const suggestionsElem = document.getElementById('suggestions');
+      suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
+
+      if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
+        suggestionsElem.innerHTML = '<p>Preencha todos os campos corretamente.</p>';
+        return;
+      }
+
+      // Gerar todas as combinações para o número de linhas informado
+      const allCombinations = getCombinations(linhas);
+
+      // Mapeia as combinações para seus totais: custo e GB
+      const validCombs = allCombinations.map(comb => {
+        const totalCost = comb.reduce((acc, p) => acc + p.price, 0);
+        const totalGb = comb.reduce((acc, p) => acc + p.gb, 0);
+        return { combination: comb, totalCost, totalGb };
+      })
+      // Filtra as combinações que não ultrapassam o valor informado e que oferecem GB total ≥ o desejado
+      .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
+
+      if (validCombs.length === 0) {
+        suggestionsElem.innerHTML = '<p>Não foi possível encontrar uma combinação que atenda os requisitos.</p>';
+        return;
+      }
+
+      // 1. Plano mais econômico: combinação com o menor custo total
+      let candidateEconomico = validCombs.reduce((min, curr) =>
+        (curr.totalCost < min.totalCost ? curr : min)
+      );
+
+      // 2. Plano com mais GB: combinação com o maior total de GB
+      let candidateMaisGb = validCombs.reduce((max, curr) =>
+        (curr.totalGb > max.totalGb ? curr : max)
+      );
+
+      // 3. Plano um pouco mais barato e com mais GB:
+      //    Dentre as combinações com custo maior que o plano mais econômico e com GB total maior que o plano mais econômico,
+      //    escolhe a de menor custo.
+      let candidatesMediano = validCombs.filter(c =>
+        c.totalCost > candidateEconomico.totalCost && c.totalGb > candidateEconomico.totalGb
+      );
+      let candidateMediano = null;
+      if (candidatesMediano.length > 0) {
+        candidateMediano = candidatesMediano.reduce((min, curr) =>
+          (curr.totalCost < min.totalCost ? curr : min)
+        );
+      } else {
+        // Se não houver, utiliza o candidato com mais GB (desde que seja diferente do econômico)
+        candidateMediano = candidateMaisGb !== candidateEconomico ? candidateMaisGb : candidateEconomico;
+      }
+
+      // Exibe os resultados
+      let html = '<h3>Sugestões:</h3>';
+
+      html += `<div class='suggestion-box'><strong>Plano mais econômico:</strong><br>`;
+      html += summarizeCombination(candidateEconomico.combination);
+      html += `<br>Total: R$ ${candidateEconomico.totalCost.toFixed(2)} | GB Total: ${candidateEconomico.totalGb}GB</div>`;
+
+      html += `<div class='suggestion-box'><strong>Plano com mais GB:</strong><br>`;
+      html += summarizeCombination(candidateMaisGb.combination);
+      html += `<br>Total: R$ ${candidateMaisGb.totalCost.toFixed(2)} | GB Total: ${candidateMaisGb.totalGb}GB</div>`;
+
+      html += `<div class='suggestion-box'><strong>Plano um pouco mais barato e com mais GB:</strong><br>`;
+      html += summarizeCombination(candidateMediano.combination);
+      html += `<br>Total: R$ ${candidateMediano.totalCost.toFixed(2)} | GB Total: ${candidateMediano.totalGb}GB</div>`;
+
+      suggestionsElem.innerHTML = html;
+    }
+  </script>
 </body>
 </html>
