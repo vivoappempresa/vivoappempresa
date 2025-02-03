@@ -389,7 +389,7 @@
     // Exibe os resultados
     let html = '<h3>Sugestões:</h3>';
     validCombs.slice(0, 3).forEach(item => {
-        html += `<div class='suggestion-box'><strong>Plano:</strong><br>`;
+        html += `<div class='suggestion-box'><strong>Plano sugerido:</strong><br>`;
         html += summarizeCombination(item.combination);
         html += `<br>Total: R$ ${item.totalCost.toFixed(2)} | GB Total: ${item.totalGb}GB</div>`;
     });
