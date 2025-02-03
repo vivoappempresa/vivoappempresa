@@ -7,6 +7,14 @@
     <meta charset="UTF-8">
     <title>Vivo Máscara Cliente</title>
     <style>
+                footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -249,6 +257,33 @@
                 .then(() => alert('Informações copiadas para a área de transferência!'))
                 .catch(err => alert('Erro ao copiar informações: ' + err));
         }
+    </script>
+    
+        <footer>
+        <p id="fraseMotivacional"></p>
+    </footer>
+
+    <script>
+        const frases = [
+            "Acredite em você e todo o resto virá naturalmente.",
+            "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
+            "Não importa quão devagar você vá, desde que você não pare.",
+            "A única maneira de fazer um ótimo trabalho é amar o que você faz.",
+            "Você é capaz de coisas incríveis!",
+            "A persistência é o caminho do êxito."
+        ];
+
+        let indice = 0;
+
+        function mudarFrase() {
+            const fraseElement = document.getElementById('fraseMotivacional');
+            fraseElement.textContent = frases[indice];
+            indice = (indice + 1) % frases.length; // Muda para a próxima frase
+        }
+
+        // Muda a frase a cada 5 segundos
+        setInterval(mudarFrase, 5000);
+        mudarFrase(); // Chama a função uma vez para mostrar a primeira frase imediatamente
     </script>
 </body>
 </html>
