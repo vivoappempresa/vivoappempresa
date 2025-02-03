@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -288,154 +289,134 @@
 <br>
 <br>
 
-  <!-- Seção do analisador, inserida abaixo da imagem -->
-  <div class="analyzer">
-    <h3>Gerar Plano por Linhas</h3>
-    <label>
-      Valor Pago Atual: 
-      <input type="number" id="valor" min="0" step="0.01" placeholder="Ex: 210">
-    </label>
-    <label>
-      Total de GB: 
-      <input type="number" id="gb" min="0" placeholder="Ex: 70">
-    </label>
-    <label>
-      Quantidade de Linhas: 
-      <input type="number" id="linhas" min="1" value="1">
-    </label>
-    <button onclick="analyzeBestPlan()">ANALISAR MELHOR PLANO</button>
-    <div class="suggestions" id="suggestions"></div>
-  </div>
+    <div class="analyzer">
+        <h3>Gerar Plano por Linhas</h3>
+        <label>
+            Valor Pago Atual:
+            <input type="number" id="valor" min="0" step="0.01" placeholder="Ex: 210">
+        </label>
+        <label>
+            Total de GB:
+            <input type="number" id="gb" min="0" placeholder="Ex: 70">
+        </label>
+        <label>
+            Quantidade de Linhas:
+            <input type="number" id="linhas" min="1" value="1">
+        </label>
 
-  <div class="benefits">
-    <h3>Benefícios</h3>
-    <p>Internet ilimitada caso acabe seus GB ela não para.</p>
-    <p>Ligação para todo Brasil e qualquer operadora ilimitado.</p>
-    <p>SMS ilimitado.</p>
-    <p>Proteção de dados caso entre em site duvidoso.</p>
-    <p>REDE SOCIAL ILIMITADO /WhatsApp.</p>
-    <p>Conexão 5G em todo Brasil.</p>
-    <p>Também pode compartilhar sua conexão com amigos que use a Vivo também.</p>
-    <p>Realizar compra de aparelhos tipo telefone ou computadores com a gente na Vivo, com descontos de até 70%.</p>
-    <p>O chip sai de graça e mandamos pro seu endereço e não perde o número.</p>
-  </div>
+        <!-- Caixa de texto para senha -->
+        <label>
+            Desconto Supervisor:
+            <input type="password" id="supervisor-password" placeholder="Digite a senha">
+        </label>
 
-  <script>
-    // Lista de planos disponíveis para o analisador
-    const plans = [
-      { name: '6GB', gb: 6, price: 39.99 },
-      { name: '15GB', gb: 15, price: 54.99 },
-      { name: '20GB', gb: 20, price: 59.99 },
-      { name: '30GB', gb: 30, price: 69.99 },
-      { name: '40GB', gb: 40, price: 79.99 },
-      { name: '50GB', gb: 50, price: 89.99 },
-      { name: '100GB', gb: 100, price: 99.99 }
-    ];
+        <button onclick="analyzeBestPlan()">ANALISAR MELHOR PLANO</button>
+        <div class="suggestions" id="suggestions"></div>
+    </div>
 
-    // Função para agrupar e resumir uma combinação (ex: "2 linha(s) de 6GB + 1 linha(s) de 100GB")
-    function summarizeCombination(comb) {
-      const summary = {};
-      comb.forEach(plan => {
-        if (!summary[plan.name]) {
-          summary[plan.name] = { count: 0, price: plan.price, gb: plan.gb };
+    <div class="benefits">
+        <h3>Benefícios</h3>
+        <!-- Benefícios aqui -->
+    </div>
+
+    <script>
+        // Lista de planos existentes
+        const plans = [
+            { name: '6GB', gb: 6, price: 39.99 },
+            { name: '15GB', gb: 15, price: 54.99 },
+            { name: '20GB', gb: 20, price: 59.99 },
+            { name: '30GB', gb: 30, price: 69.99 },
+            { name: '40GB', gb: 40, price: 79.99 },
+            { name: '50GB', gb: 50, price: 89.99 },
+            { name: '100GB', gb: 100, price: 99.99 }
+        ];
+
+        // Função para adicionar o plano de 1GB por R$ 29,99 caso a senha seja correta
+        function addDiscountPlan() {
+            const password = document.getElementById('supervisor-password').value;
+            if (password === '17172025') { // Senha correta
+                plans.push({ name: '1GB', gb: 1, price: 29.99 }); // Adiciona o plano de 1GB por R$ 29,99
+                alert('Plano de 1GB adicionado com sucesso!');
+            } else {
+                
+            }
         }
-        summary[plan.name].count++;
-      });
-      const parts = [];
-      for (const key in summary) {
-        const item = summary[key];
-        parts.push(`${item.count} linha(s) de ${key} (R$ ${item.price.toFixed(2)} c/ ${item.gb}GB)`);
-      }
-      return parts.join(' + ');
-    }
 
-    // Função recursiva para gerar combinações (com repetição) para n linhas.
-    // Usamos o parâmetro "start" para evitar repetições (ordem não importa)
-    function getCombinations(n, start = 0, current = [], all = []) {
-      if (current.length === n) {
-        all.push([...current]);
-        return;
-      }
-      for (let i = start; i < plans.length; i++) {
-        current.push(plans[i]);
-        getCombinations(n, i, current, all);
-        current.pop();
-      }
-      return all;
-    }
+        function analyzeBestPlan() {
+    addDiscountPlan(); // Adiciona o plano de desconto se a senha estiver correta
 
-    function analyzeBestPlan() {
-      const valor = parseFloat(document.getElementById('valor').value) || 0;
-      const gbTotal = parseInt(document.getElementById('gb').value) || 0;
-      const linhas = parseInt(document.getElementById('linhas').value) || 1;
-      const suggestionsElem = document.getElementById('suggestions');
-      suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
+    const valor = parseFloat(document.getElementById('valor').value) || 0;
+    const gbTotal = parseInt(document.getElementById('gb').value) || 0;
+    const linhas = parseInt(document.getElementById('linhas').value) || 1;
+    const suggestionsElem = document.getElementById('suggestions');
+    suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
 
-      if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
+    if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
         suggestionsElem.innerHTML = '<p>Preencha todos os campos corretamente.</p>';
         return;
-      }
+    }
 
-      // Gerar todas as combinações para o número de linhas informado
-      const allCombinations = getCombinations(linhas);
+    // Gerar todas as combinações para o número de linhas informado
+    const allCombinations = getCombinations(linhas);
 
-      // Mapeia as combinações para seus totais: custo e GB
-      const validCombs = allCombinations.map(comb => {
+    // Mapeia as combinações para seus totais: custo e GB
+    const validCombs = allCombinations.map(comb => {
         const totalCost = comb.reduce((acc, p) => acc + p.price, 0);
         const totalGb = comb.reduce((acc, p) => acc + p.gb, 0);
         return { combination: comb, totalCost, totalGb };
-      })
-      // Filtra as combinações que não ultrapassam o valor informado e que oferecem GB total ≥ o desejado
-      .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
+    })
+    .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
 
-      if (validCombs.length === 0) {
+    if (validCombs.length === 0) {
         suggestionsElem.innerHTML = '<p>Não foi possível encontrar uma combinação que atenda os requisitos.</p>';
         return;
-      }
-
-      // 1. Plano mais econômico: combinação com o menor custo total
-      let candidateEconomico = validCombs.reduce((min, curr) =>
-        (curr.totalCost < min.totalCost ? curr : min)
-      );
-
-      // 2. Plano com mais GB: combinação com o maior total de GB
-      let candidateMaisGb = validCombs.reduce((max, curr) =>
-        (curr.totalGb > max.totalGb ? curr : max)
-      );
-
-      // 3. Plano um pouco mais barato e com mais GB:
-      //    Dentre as combinações com custo maior que o plano mais econômico e com GB total maior que o plano mais econômico,
-      //    escolhe a de menor custo.
-      let candidatesMediano = validCombs.filter(c =>
-        c.totalCost > candidateEconomico.totalCost && c.totalGb > candidateEconomico.totalGb
-      );
-      let candidateMediano = null;
-      if (candidatesMediano.length > 0) {
-        candidateMediano = candidatesMediano.reduce((min, curr) =>
-          (curr.totalCost < min.totalCost ? curr : min)
-        );
-      } else {
-        // Se não houver, utiliza o candidato com mais GB (desde que seja diferente do econômico)
-        candidateMediano = candidateMaisGb !== candidateEconomico ? candidateMaisGb : candidateEconomico;
-      }
-
-      // Exibe os resultados
-      let html = '<h3>Sugestões:</h3>';
-
-      html += `<div class='suggestion-box'><strong>Plano mais econômico:</strong><br>`;
-      html += summarizeCombination(candidateEconomico.combination);
-      html += `<br>Total: R$ ${candidateEconomico.totalCost.toFixed(2)} | GB Total: ${candidateEconomico.totalGb}GB</div>`;
-
-      html += `<div class='suggestion-box'><strong>Plano com mais GB:</strong><br>`;
-      html += summarizeCombination(candidateMaisGb.combination);
-      html += `<br>Total: R$ ${candidateMaisGb.totalCost.toFixed(2)} | GB Total: ${candidateMaisGb.totalGb}GB</div>`;
-
-      html += `<div class='suggestion-box'><strong>Plano um pouco mais barato e com mais GB:</strong><br>`;
-      html += summarizeCombination(candidateMediano.combination);
-      html += `<br>Total: R$ ${candidateMediano.totalCost.toFixed(2)} | GB Total: ${candidateMediano.totalGb}GB</div>`;
-
-      suggestionsElem.innerHTML = html;
     }
-  </script>
+
+    // Limita o número de sugestões a 3
+    validCombs.slice(0, 3);
+
+    // Exibe os resultados
+    let html = '<h3>Sugestões:</h3>';
+    validCombs.slice(0, 3).forEach(item => {
+        html += `<div class='suggestion-box'><strong>Plano:</strong><br>`;
+        html += summarizeCombination(item.combination);
+        html += `<br>Total: R$ ${item.totalCost.toFixed(2)} | GB Total: ${item.totalGb}GB</div>`;
+    });
+
+    suggestionsElem.innerHTML = html;
+}
+
+        // Função recursiva para gerar combinações (com repetição)
+        function getCombinations(n, start = 0, current = [], all = []) {
+            if (current.length === n) {
+                all.push([...current]);
+                return;
+            }
+            for (let i = start; i < plans.length; i++) {
+                current.push(plans[i]);
+                getCombinations(n, i, current, all);
+                current.pop();
+            }
+            return all;
+        }
+
+        // Função para agrupar as combinações em formato legível
+        function summarizeCombination(comb) {
+            const summary = {};
+            comb.forEach(plan => {
+                if (!summary[plan.name]) {
+                    summary[plan.name] = { count: 0, price: plan.price, gb: plan.gb };
+                }
+                summary[plan.name].count++;
+            });
+            const parts = [];
+            for (const key in summary) {
+                const item = summary[key];
+                parts.push(`${item.count} linha(s) de ${key} (R$ ${item.price.toFixed(2)} c/ ${item.gb}GB)`);
+            }
+            return parts.join(' + ');
+        }
+    </script>
 </body>
 </html>
+
