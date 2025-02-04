@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<head>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/46/46010.png" type="image/x-icon">
-</head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oferta Vivo Total</title>
@@ -89,62 +87,12 @@
         <span class="arrow">&larr;</span> Voltar
     </button>
 
-</body>
-
-  </style>
-	
-	
-	
-    <script>
-        function calculateTotal() {
-            let total = 0;
-
-            const broadband = document.querySelector('input[name="broadband"]:checked');
-            const mobile = document.querySelector('input[name="mobile"]:checked');
-            const unlimited = document.getElementById('unlimited');
-            const mdm = document.getElementById('mdm');  // Selecionando o MDM
-
-            // Soma os preços de banda larga selecionados
-            if (broadband) {
-                total += parseFloat(broadband.value);
-            }
-            // Soma os preços dos planos móveis selecionados
-            if (mobile) {
-                total += parseFloat(mobile.value);
-            }
-            // Adiciona o valor do plano ilimitado Empresas Brasil, se selecionado
-            if (unlimited.checked) {
-                total += parseFloat(unlimited.value);
-            }
-            // Adiciona o valor do MDM, se selecionado
-            if (mdm.checked) {
-                total += 6.90;  // MDM R$ 6,90
-            }
-
-            // Atualiza o título e a imagem dependendo das seleções
-            if (broadband && mobile && unlimited.checked) {
-                document.querySelector('h1').textContent = "Oferta Vivo Total";
-                document.querySelector('img').src = "vivototal.png";  // Caminho relativo para imagem
-            } else if (broadband && mobile) {
-                document.querySelector('h1').textContent = "Oferta Vivo Total 2P MÓVEL";
-                document.querySelector('img').src = "vivototal2p.png";  // Caminho relativo para imagem
-            }
-
-            // Exibe o preço total
-            document.getElementById('totalPrice').textContent = `Preço Total: R$ ${total.toFixed(2)}`;
-        }
-
-        document.addEventListener('change', calculateTotal);
-    </script>
-</head>
-<body>
-
     <div class="container">
         <h1>Oferta Vivo Total</h1>
 
         <div class="section">
             <h3>Banda Larga Fixa</h3>
-	    <label><input type="radio" name="broadband" value="89.99"> 500Mega - R$ 89,99</label>
+            <label><input type="radio" name="broadband" value="99.99"> 500Mega - R$ 99,99</label>
             <label><input type="radio" name="broadband" value="129.99"> 600Mega - R$ 129,99</label>
             <label><input type="radio" name="broadband" value="139.99"> 700Mega - R$ 139,99</label>
             <label><input type="radio" name="broadband" value="299.99"> 1 Giga - R$ 299,99</label>
@@ -184,5 +132,60 @@
         <p>Planos móveis com opções variadas para atender suas necessidades.</p>
         <p>Bônus de internet disponíveis com o plano ilimitado Empresas Brasil.</p>
     </div>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+
+            const broadband = document.querySelector('input[name="broadband"]:checked');
+            const mobile = document.querySelector('input[name="mobile"]:checked');
+            const unlimited = document.getElementById('unlimited');
+            const mdm = document.getElementById('mdm');  // Selecionando o MDM
+
+            // Verifica o valor do plano de banda larga
+            if (broadband) {
+                if (broadband.value === "99.99" && (mobile || unlimited.checked)) {
+                    // Se for 500 Mega e houver outra seleção (Plano Móvel ou Ilimitado)
+                    if (!unlimited.checked) {
+                        total += 89.99;  // Aplica o desconto se for 500Mega + plano móvel
+                    } else {
+                        total += 99.99;  // Mantém R$ 99,99 se for 500Mega + Ilimitado
+                    }
+                } else {
+                    total += parseFloat(broadband.value); // Senão mantém o valor original
+                }
+            }
+
+            // Soma os preços dos planos móveis selecionados
+            if (mobile) {
+                total += parseFloat(mobile.value);
+            }
+
+            // Adiciona o valor do plano ilimitado Empresas Brasil, se selecionado
+            if (unlimited.checked) {
+                total += parseFloat(unlimited.value);
+            }
+
+            // Adiciona o valor do MDM, se selecionado
+            if (mdm.checked) {
+                total += 6.90;  // MDM R$ 6,90
+            }
+
+            // Atualiza o título e a imagem dependendo das seleções
+            if (broadband && mobile && unlimited.checked) {
+                document.querySelector('h1').textContent = "Oferta Vivo Total";
+                document.querySelector('img').src = "vivototal.png";  // Caminho relativo para imagem
+            } else if (broadband && mobile) {
+                document.querySelector('h1').textContent = "Oferta Vivo Total 2P MÓVEL";
+                document.querySelector('img').src = "vivototal2p.png";  // Caminho relativo para imagem
+            }
+
+            // Exibe o preço total
+            document.getElementById('totalPrice').textContent = `Preço Total: R$ ${total.toFixed(2)}`;
+        }
+
+        document.addEventListener('change', calculateTotal);
+    </script>
+
 </body>
 </html>
