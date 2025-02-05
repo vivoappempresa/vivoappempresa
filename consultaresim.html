@@ -6,18 +6,30 @@
     <title>Lista de Dispositivos com eSIM</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/46/46010.png" type="image/x-icon">
     <style>
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            position: fixed; /* Rodapé fixo */
+            bottom: 0;
+            width: 100%; /* Para ocupar toda a largura da tela */
+            background-color: #333; /* Cor de fundo do rodapé */
+            color: white; /* Cor do texto */
+        }
         body {
             background-color: purple; /* Cor do fundo roxo */
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            flex-direction: column; /* Alinha o conteúdo verticalmente */
+            min-height: 100vh;
             margin: 0;
             color: white; /* Cor do texto */
         }
         .container {
             text-align: center;
+            flex: 1; /* Faz o conteúdo ocupar o restante do espaço */
         }
         .search-bar {
             padding: 10px;
@@ -232,6 +244,35 @@
             // Exibir ou ocultar a lista com base na presença de correspondências
             ul.style.display = hasMatches ? "block" : "none";
         }
+    </script>
+
+
+    <footer>
+        <p id="fraseMotivacional"></p>
+    </footer>
+
+    <script>
+        const frases = [
+            "Acredite em você e todo o resto virá naturalmente.",
+            "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
+            "Não importa quão devagar você vá, desde que você não pare.",
+            "A única maneira de fazer um ótimo trabalho é amar o que você faz.",
+            "Você é capaz de coisas incríveis!",
+            "A persistência é o caminho do êxito.",
+            "O NÃO você já tem, vá em embusca do SIM ass:Jonas"
+        ];
+
+        let indice = 0;
+
+        function mudarFrase() {
+            const fraseElement = document.getElementById('fraseMotivacional');
+            fraseElement.textContent = frases[indice];
+            indice = (indice + 1) % frases.length; // Muda para a próxima frase
+        }
+
+        // Muda a frase a cada 5 segundos
+        setInterval(mudarFrase, 5000);
+        mudarFrase(); // Chama a função uma vez para mostrar a primeira frase imediatamente
     </script>
 </body>
 </html>
