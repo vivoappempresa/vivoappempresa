@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Dispositivos com eSIM</title>
+    <style>
+        body {
+            background-color: purple; /* Cor do fundo roxo */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white; /* Cor do texto */
+        }
+        .container {
+            text-align: center;
+        }
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .device-list {
+            list-style: none;
+            padding: 0;
+            display: none; /* Inicialmente, a lista é invisível */
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .device-item {
+            padding: 8px;
+            background-color: #333;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .device-item:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Dispositivos com eSIM</h1>
+        <input type="text" id="searchModel" class="search-bar" placeholder="Buscar por modelo, nome ou número" onkeyup="filterDevices()">
+        <ul id="deviceList" class="device-list">
+            <li class="device-item">iPhone 15</li>
+            <li class="device-item">iPhone 15 Plus</li>
+            <li class="device-item">iPhone 15 Pro</li>
+            <li class="device-item">iPhone 15 Pro Max</li>
+            <li class="device-item">iPhone 14</li>
+            <li class="device-item">iPhone 14 Plus</li>
+            <li class="device-item">iPhone 14 Pro</li>
+            <li class="device-item">iPhone 14 Pro Max</li>
+            <li class="device-item">iPhone 13</li>
+            <li class="device-item">iPhone 13 Mini</li>
+            <li class="device-item">iPhone 13 Pro</li>
+            <li class="device-item">iPhone 13 Pro Max</li>
+            <li class="device-item">iPhone 12</li>
+            <li class="device-item">iPhone 12 Mini</li>
+            <li class="device-item">iPhone 12 Pro</li>
+            <li class="device-item">iPhone 12 Pro Max</li>
+            <li class="device-item">iPhone 11</li>
+            <li class="device-item">iPhone 11 Pro</li>
+            <li class="device-item">iPhone 11 Pro Max</li>
+            <li class="device-item">iPhone XS</li>
+            <li class="device-item">iPhone XS Max</li>
+            <li class="device-item">iPhone XR</li>
+            <li class="device-item">iPhone SE (2020)</li>
+            <li class="device-item">iPhone SE (2022)</li>
+            <li class="device-item">Pixel 8 Pro</li>
+            <li class="device-item">Pixel 8</li>
+            <li class="device-item">Pixel Fold</li>
+            <li class="device-item">Pixel 7 Pro</li>
+            <li class="device-item">Pixel 7a</li>
+            <li class="device-item">Pixel 7</li>
+            <li class="device-item">Pixel 6 Pro</li>
+            <li class="device-item">Pixel 6a</li>
+            <li class="device-item">Pixel 6</li>
+            <li class="device-item">Pixel 5a</li>
+            <li class="device-item">Pixel 5</li>
+            <li class="device-item">Pixel 4a</li>
+            <li class="device-item">Pixel 4</li>
+            <li class="device-item">Pixel 4 XL</li>
+            <li class="device-item">Pixel 3 & 3 XL</li>
+            <li class="device-item">Pixel 3a & 3a XL</li>
+            <li class="device-item">Explorer PRO</li>
+            <li class="device-item">Blade 3</li>
+            <li class="device-item">Blade 5G</li>
+            <li class="device-item">myPhone NOW eSIM</li>
+            <li class="device-item">Magic5 Pro</li>
+            <li class="device-item">Magic4 Pro</li>
+            <li class="device-item">Honor 90</li>
+            <li class="device-item">P40</li>
+            <li class="device-item">P40 Pro</li>
+            <li class="device-item">Mate 40 Pro</li>
+            <li class="device-item">Moto G54</li>
+            <li class="device-item">Edge 40 Neo</li>
+            <li class="device-item">Edge 40 Pro</li>
+            <li class="device-item">Edge+</li>
+            <li class="device-item">Razr 40 Ultra</li>
+            <li class="device-item">Razr 2022</li>
+            <li class="device-item">Razr 2019</li>
+            <li class="device-item">Razr 5G</li>
+            <li class="device-item">G53 5G</li>
+            <li class="device-item">XR21</li>
+            <li class="device-item">X30</li>
+            <li class="device-item">OnePlus 11</li>
+            <li class="device-item">Find N2 Flip</li>
+            <li class="device-item">Find X3 Pro</li>
+            <li class="device-item">Find X5</li>
+            <li class="device-item">Find X5 Pro</li>
+            <li class="device-item">Reno A</li>
+            <li class="device-item">Nuu Mobile X5</li>
+            <li class="device-item">Gemini PDA 4G+Wi-Fi</li>
+            <li class="device-item">Fairphone 4</li>
+            <li class="device-item">Rakuten Big</li>
+            <li class="device-item">Rakuten Big S</li>
+            <li class="device-item">Rakuten Mini</li>
+            <li class="device-item">Rakuten Hand</li>
+            <li class="device-item">Galaxy S23 FE</li>
+            <li class="device-item">Galaxy A54 5G</li>
+            <li class="device-item">Galaxy S23</li>
+            <li class="device-item">Galaxy S23+</li>
+            <li class="device-item">Galaxy S23 Ultra</li>
+            <li class="device-item">Galaxy S22 5G</li>
+            <li class="device-item">Galaxy S22+ 5G</li>
+            <li class="device-item">Galaxy S22 Ultra 5G</li>
+            <li class="device-item">Galaxy S21 5G</li>
+            <li class="device-item">Galaxy S21+ 5G</li>
+            <li class="device-item">Galaxy S21 Ultra 5G</li>
+            <li class="device-item">Galaxy S20 5G</li>
+            <li class="device-item">Galaxy S20</li>
+            <li class="device-item">Galaxy S20+</li>
+            <li class="device-item">Galaxy S20+ 5G</li>
+            <li class="device-item">Galaxy S20 Ultra</li>
+            <li class="device-item">Galaxy S20 Ultra 5G</li>
+            <li class="device-item">Galaxy Z Flip</li>
+            <li class="device-item">Galaxy Z Flip 3 5G</li>
+            <li class="device-item">Galaxy Z Flip 4</li>
+            <li class="device-item">Galaxy Z Flip 5</li>
+            <li class="device-item">Galaxy Z Fold</li>
+            <li class="device-item">Galaxy Z Fold 2</li>
+            <li class="device-item">Galaxy Z Fold 3</li>
+            <li class="device-item">Galaxy Z Fold 4</li>
+            <li class="device-item">Galaxy Z Fold 5</li>
+            <li class="device-item">Galaxy Note 20</li>
+            <li class="device-item">Galaxy Note 20 5G</li>
+            <li class="device-item">Galaxy Note 20 Ultra</li>
+            <li class="device-item">Galaxy Note 20 Ultra 5G</li>
+            <li class="device-item">AQUOS Sense4 Lite</li>
+            <li class="device-item">AQUOS R7</li>
+            <li class="device-item">AQUOS Wish</li>
+            <li class="device-item">AQUOS Zero6</li>
+            <li class="device-item">AQUOS Sense6</li>
+            <li class="device-item">Xperia 1 V</li>
+            <li class="device-item">Xperia 1 IV</li>
+            <li class="device-item">Xperia 5 IV</li>
+            <li class="device-item">Xperia 10 III Lite</li>
+            <li class="device-item">Xperia 10 IV</li>
+            <li class="device-item">X90 Pro</li>
+            <li class="device-item">V29 (European Version)</li>
+            <li class="device-item">V29 Lite 5G (European Version)</li>
+            <li class="device-item">13T</li>
+            <li class="device-item">13T Pro</li>
+            <li class="device-item">13</li>
+            <li class="device-item">13 Pro</li>
+            <li class="device-item">13 Lite</li>
+            <li class="device-item">12T Pro</li>
+            <li class="device-item">Redmi Note 11 Pro 5G</li>
+        </ul>
+    </div>
+
+    <script>
+        function filterDevices() {
+            let input = document.getElementById('searchModel');
+            let filter = input.value.toUpperCase();
+            let ul = document.getElementById("deviceList");
+            let li = ul.getElementsByClassName('device-item');
+            
+            let hasMatches = false;
+            
+            // Verificar se há algum dispositivo que corresponda à pesquisa
+            for (let i = 0; i < li.length; i++) {
+                if (li[i].innerText.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                    hasMatches = true;
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+            
+            // Exibir ou ocultar a lista com base na presença de correspondências
+            ul.style.display = hasMatches ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
