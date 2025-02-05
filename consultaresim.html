@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-        <body>
-
-    <!-- Botão Voltar -->
-    <button class="back-button" onclick="window.location.href='index.html'">
-        <span class="arrow">&larr;</span> Voltar
-    </button>
-</head>
-<body>
         <head>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/46/46010.png" type="image/x-icon">
 </head>
@@ -53,8 +45,33 @@
         .device-item:hover {
             background-color: #444;
         }
+                    button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: green;
+        }
+
+        .back-button .arrow {
+            margin-right: 8px;
+        }
     </style>
 </head>
+                <body>
+
+    <!-- Botão Voltar -->
+    <button class="back-button" onclick="window.location.href='index.html'">
+        <span class="arrow">&larr;</span> Voltar
+    </button>
+</head>
+<body>
 <body>
     <div class="container">
         <h1>Lista de Dispositivos com eSIM</h1>
