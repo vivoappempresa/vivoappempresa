@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <head>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/46/46010.png" type="image/x-icon">
-</head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivo Máscara Cliente</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/46/46010.png" type="image/x-icon">
     <style>
-                footer {
+        footer {
             text-align: center;
             margin-top: 20px;
             padding: 10px;
@@ -72,6 +71,27 @@
         .back-button .arrow {
             margin-right: 8px;
         }
+
+        /* Estilo do campo de consulta CNPJ */
+        #cnpjInput {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        #consultarCNPJButton {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        #consultarCNPJButton:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -80,18 +100,19 @@
     <button class="back-button" onclick="window.location.href='index.html'">
         <span class="arrow">&larr;</span> Voltar
     </button>
-</head>
-<body>
+
     <div class="container">
         <h1>Preenchimento de Dados</h1>
         
-        <!-- Caixa de texto para colar as informações -->
-        <textarea id="dadosCopiados" rows="10" placeholder="Cole as informações copiadas aqui..."></textarea>
+        <!-- Campo para inserir CNPJ -->
+        <input type="text" id="cnpjInput" placeholder="Digite o CNPJ (ex: 07526557011659)" />
+        <button id="consultarCNPJButton" onclick="consultarCNPJ()">Pesquisar CNPJ</button>
+
+        <div id="result"></div>
 
         <div class="actions">
-            <button type="button" onclick="preencherFormulario()">Preencher Formulário</button>
-            <button type="button" onclick="extrairMascara()">Extrair Máscara</button>
             <button type="button" onclick="copiarInformacao()">Copiar Informação</button>
+            <button type="button" onclick="baixarMascara()">Baixar Máscara</button>
         </div>
 
         <form id="mascaraForm">
@@ -185,94 +206,89 @@
 
             <label for="CEP">CEP:</label>
             <input type="text" id="CEP" name="CEP">
-
-            <div class="actions">
-                <button type="button" onclick="extrairMascara()">Extrair Máscara</button>
-                <button type="button" onclick="copiarInformacao()">Copiar Informação</button>
-            </div>
         </form>
     </div>
 
     <script>
-        function preencherFormulario() {
-            const dados = document.getElementById('dadosCopiados').value;
+        async function consultarCNPJ() {
+            const cnpj = document.getElementById("cnpjInput").value;
+            const resultDiv = document.getElementById("result");
 
-            // Expressões regulares ajustadas para os dados fornecidos
-            const regexRazaoSocial = /RAZAO_SOCIAL:\s*([^\n]+)/;
-            const regexCNPJ = /CNPJ:\s*([^\n]+)/;
-            const regexLogradouro = /ENDEREÇO:\s*([^\n]+)/;
-            const regexNumero = /NUMERO:\s*([^\n]+)/;
-            const regexViabilidade = /VIABILIDADE\s*([^\n]+)/;
-            const regexCep = /CEP:\s*([^\n]+)/;
-            const regexCidade = /CIDADE:\s*([^\n]+)/;
-            const regexUf = /UF:\s*([^\n]+)/;
-            const regexOperadora = /OPERADORA:\s*([^\n]+)/;
-            const regexMailing = /NOME_MAILING:\s*([^\n]+)/;
-            const regexBairro = /BAIRRO:\s*([^\n]+)/;
-            const regexTelefone1 = /TELEFONE1:\s*([^\n]+)/;
-            const regexemail = /ENDEREÇO ELETRÔNICO\s*([^\n]+)/;
-            const regexlogradouro = /LOGRADOURO\s*([^\n]+)/;
-            const regexcomplemento = /COMPLEMENTO\s*([^\n]+)/;
-            
+            // Verifica se o CNPJ tem o formato correto
+            const cnpjPattern = /^\d{14}$/;
+            if (!cnpjPattern.test(cnpj)) {
+                resultDiv.innerHTML = "Por favor, insira um CNPJ válido com 14 dígitos.";
+                return;
+            }
 
+            try {
+                // Chama a API
+                const response = await fetch(`https://open.cnpja.com/office/${cnpj}`);
 
-            // Função para preencher os campos com os dados extraídos
-            function preencherCampo(campoId, regex, grupo = 1) {
-                const resultado = dados.match(regex);
-                if (resultado) {
-                    document.getElementById(campoId).value = resultado[grupo].trim();
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar o CNPJ.");
                 }
+
+                const data = await response.json();
+
+                // Verifica se a empresa está ativa
+                if (data && data.status.text === "Ativa") {
+                    const address = data.address;
+
+                    // Preenche os campos da máscara com os dados
+                    document.getElementById('RAZAOSOCIAL').value = data.company.name;
+                    document.getElementById('CNPJ').value = cnpj;
+                    document.getElementById('LOGRADOURO').value = address.street;
+                    document.getElementById('NUMERO').value = address.number;
+                    document.getElementById('COMPLEMENTO').value = address.details || 'Não informado';
+                    document.getElementById('BAIRRO').value = address.district;
+                    document.getElementById('CIDADE').value = address.city;
+                    document.getElementById('UF').value = address.state;
+                    document.getElementById('CEP').value = address.zip;
+                    document.getElementById('EMAIL').value = data.emails.length > 0 ? data.emails[0].address : 'Não informado';
+
+                    // Preenche o campo de quadro de sócios
+                    document.getElementById('REPRESENTANTELEGAL').value = data.company.members[0]?.person.name || 'Não informado';
+                } else {
+                    resultDiv.innerHTML = "CNPJ não encontrado ou status não ativo.";
+                }
+            } catch (error) {
+                resultDiv.innerHTML = "Erro ao buscar informações. Tente novamente.";
+                console.error(error);
             }
-
-            // Preenchendo os campos do formulário
-            preencherCampo('RAZAOSOCIAL', regexRazaoSocial);
-            preencherCampo('CNPJ', regexCNPJ);
-            preencherCampo('LOGRADOURO', regexLogradouro);
-            preencherCampo('NUMERO', regexNumero);
-            preencherCampo('VENC', regexViabilidade); // Se necessário, ajuste o campo correto
-            preencherCampo('CEP', regexCep);
-            preencherCampo('CIDADE', regexCidade);
-            preencherCampo('UF', regexUf);
-            preencherCampo('OPERADORA', regexOperadora);
-            preencherCampo('MAILING', regexMailing);
-            preencherCampo('BAIRRO', regexBairro);
-            preencherCampo('TELEFONE', regexTelefone1); 
-            preencherCampo('NUMPORTABILIDADE', regexTelefone1);
-            preencherCampo('EMAIL', regexemail);
-            preencherCampo('LOGRADOURO', regexlogradouro);
-            preencherCampo('COMPLEMENTO', regexcomplemento);
-        }
-
-        function formatarDados() {
-            const form = document.getElementById('mascaraForm');
-            const formData = new FormData(form);
-            let dadosFormatados = '';
-            for (const [key, value] of formData.entries()) {
-                dadosFormatados += `${key.toUpperCase()}: ${value}\n`;
-            }
-            return dadosFormatados;
-        }
-
-        function extrairMascara() {
-            const form = document.getElementById('mascaraForm');
-            const razaoSocial = form.querySelector('#RAZAOSOCIAL').value;
-            const dados = formatarDados();
-            const blob = new Blob([dados], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `${razaoSocial || 'mascara_cliente'}.txt`;
-            link.click();
         }
 
         function copiarInformacao() {
-            const dados = formatarDados();
-            navigator.clipboard.writeText(dados)
-                .then(() => alert('Informações copiadas para a área de transferência!'))
-                .catch(err => alert('Erro ao copiar informações: ' + err));
+            const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'PLANO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
+            let maskInfo = '';
+            fields.forEach(field => {
+                const value = document.getElementById(field)?.value || 'Não informado';
+                maskInfo += `${field}: ${value}\n`;
+            });
+            navigator.clipboard.writeText(maskInfo).then(() => {
+                alert("Informações copiadas com sucesso!");
+            }).catch(err => {
+                alert("Erro ao copiar as informações.");
+            });
+        }
+
+        function baixarMascara() {
+            const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'PLANO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
+            let maskInfo = '';
+            fields.forEach(field => {
+                const value = document.getElementById(field)?.value || 'Não informado';
+                maskInfo += `${field}: ${value}\n`;
+            });
+
+            const blob = new Blob([maskInfo], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'mascara_cliente.txt';
+            link.click();
         }
     </script>
-    
-        <footer>
+
+ <footer>
         <p id="fraseMotivacional"></p>
     </footer>
 
