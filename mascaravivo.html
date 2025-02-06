@@ -208,6 +208,8 @@
             const regexUf = /UF:\s*([^\n]+)/;
             const regexOperadora = /OPERADORA:\s*([^\n]+)/;
             const regexMailing = /NOME_MAILING:\s*([^\n]+)/;
+            const regexBairro = /BAIRRO:\s*([^\n]+)/;
+            const regexTelefone1 = /TELEFONE1:\s*([^\n]+)/;
 
             // Função para preencher os campos com os dados extraídos
             function preencherCampo(campoId, regex, grupo = 1) {
@@ -228,6 +230,9 @@
             preencherCampo('UF', regexUf);
             preencherCampo('OPERADORA', regexOperadora);
             preencherCampo('MAILING', regexMailing);
+            preencherCampo('BAIRRO', regexBairro);
+            preencherCampo('TELEFONE', regexTelefone1); 
+            preencherCampo('NUMPORTABILIDADE', regexTelefone1);
         }
 
         function formatarDados() {
