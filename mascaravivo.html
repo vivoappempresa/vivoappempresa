@@ -212,6 +212,8 @@
             const regexTelefone1 = /TELEFONE1:\s*([^\n]+)/;
             const regexemail = /ENDEREÇO ELETRÔNICO\s*([^\n]+)/;
             const regexlogradouro = /LOGRADOURO\s*([^\n]+)/;
+            const regexcomplemento = /COMPLEMENTO\s*([^\n]+)/;
+            
 
 
             // Função para preencher os campos com os dados extraídos
@@ -238,6 +240,7 @@
             preencherCampo('NUMPORTABILIDADE', regexTelefone1);
             preencherCampo('EMAIL', regexemail);
             preencherCampo('LOGRADOURO', regexlogradouro);
+            preencherCampo('COMPLEMENTO', regexcomplemento);
         }
 
         function formatarDados() {
