@@ -200,5 +200,65 @@
         document.addEventListener('change', calculateTotal);
     </script>
 
+ <!-- script de alerta --!>
+<script>
+    function calculateTotal() {
+        let total = 0;
+
+        const broadband = document.querySelector('input[name="broadband"]:checked');
+        const mobile = document.querySelector('input[name="mobile"]:checked');
+        const unlimited = document.getElementById('unlimited');
+        const mdm = document.getElementById('mdm');  // Selecionando o MDM
+
+        // Verifica o valor do plano de banda larga
+        if (broadband) {
+            if (broadband.value === "99.99" && (mobile || unlimited.checked)) {
+                // Se for 500 Mega e houver outra seleção (Plano Móvel ou Ilimitado)
+                if (!unlimited.checked) {
+                    total += 89.99;  // Aplica o desconto se for 500Mega + plano móvel
+                } else {
+                    total += 99.99;  // Mantém R$ 99,99 se for 500Mega + Ilimitado
+                }
+            } else {
+                total += parseFloat(broadband.value); // Senão mantém o valor original
+            }
+        }
+
+        // Soma os preços dos planos móveis selecionados
+        if (mobile) {
+            total += parseFloat(mobile.value);
+        }
+
+        // Adiciona o valor do plano ilimitado Empresas Brasil, se selecionado
+        if (unlimited.checked) {
+            total += parseFloat(unlimited.value);
+        }
+
+        // Adiciona o valor do MDM, se selecionado
+        if (mdm.checked) {
+            total += 6.90;  // MDM R$ 6,90
+        }
+
+        // Exibe um alerta se Banda Larga e Plano Móvel forem selecionados
+        if (broadband && mobile) {
+            alert("OFERTA VALOR DA BL COM 20$ REAIS A MAIS SEMPRE, OFERTA DEBITO AUTOMATICO PRO CLIENTE FALANDO QUE ELE TEM + 20$ REIS DE DESCONTO NA SUA FATURA");
+        }
+
+        // Atualiza o título e a imagem dependendo das seleções
+        if (broadband && mobile && unlimited.checked) {
+            document.querySelector('h1').textContent = "Oferta Vivo Total";
+            document.querySelector('img').src = "vivototal.png";  // Caminho relativo para imagem
+        } else if (broadband && mobile) {
+            document.querySelector('h1').textContent = "Oferta Vivo Total 2P MÓVEL";
+            document.querySelector('img').src = "vivototal2p.png";  // Caminho relativo para imagem
+        }
+
+        // Exibe o preço total
+        document.getElementById('totalPrice').textContent = `Preço Total: R$ ${total.toFixed(2)}`;
+    }
+
+    document.addEventListener('change', calculateTotal);
+</script>
+    
 </body>
 </html>
