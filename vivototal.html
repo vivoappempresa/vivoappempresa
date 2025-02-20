@@ -200,7 +200,6 @@
         document.addEventListener('change', calculateTotal);
     </script>
 
- <!-- script de alerta --!>
 <script>
     function calculateTotal() {
         let total = 0;
@@ -241,7 +240,12 @@
 
         // Exibe um alerta se Banda Larga e Plano Móvel forem selecionados
         if (broadband && mobile) {
-            alert("OFERTA VALOR DA BL COM 20$ REAIS A MAIS SEMPRE, OFERTA DEBITO AUTOMATICO PRO CLIENTE FALANDO QUE ELE TEM + 20$ REIS DE DESCONTO NA SUA FATURA");
+            alert("Oferta com R$ 20,00 a mais no valor da banda larga e débito automático, com desconto de R$ 20,00 na sua fatura.");
+
+            // Configura o alerta para aparecer novamente após 1 minuto (60.000 milissegundos)
+            setTimeout(function() {
+                alert("Oferta com R$ 20,00 a mais no valor da banda larga e débito automático, com desconto de R$ 20,00 na sua fatura.");
+            }, 60000);  // 60.000 milissegundos = 1 minuto
         }
 
         // Atualiza o título e a imagem dependendo das seleções
@@ -259,6 +263,7 @@
 
     document.addEventListener('change', calculateTotal);
 </script>
+
     
 </body>
 </html>
