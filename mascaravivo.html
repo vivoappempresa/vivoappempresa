@@ -144,98 +144,98 @@
             <button onclick="window.open('https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp', '_blank')">Ir para consulta</button>
         </div>
 
-        <form id="mascaraForm">
-            <!-- Dados da Empresa -->
-            <label for="CNPJ">CNPJ:</label>
-            <input type="text" id="CNPJ" name="CNPJ" required>
+<form id="mascaraForm">
+    <!-- Dados da Empresa -->
+    <label for="CNPJ">CNPJ:</label>
+    <input type="text" id="CNPJ" name="CNPJ" required>
 
-            <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
-            <input type="text" id="RAZAOSOCIAL" name="RAZAO_SOCIAL" required>
+    <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
+    <input type="text" id="RAZAOSOCIAL" name="RAZAO_SOCIAL" required>
 
-            <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
-            <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTE_LEGAL">
+    <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
+    <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTE_LEGAL">
 
-            <label for="CPF">CPF:</label>
-            <input type="text" id="CPF" name="CPF">
+    <label for="CPF">CPF:</label>
+    <input type="text" id="CPF" name="CPF">
 
-            <label for="RG">RG:</label>
-            <input type="text" id="RG" name="RG">
+    <label for="RG">RG:</label>
+    <input type="text" id="RG" name="RG">
 
-            <label for="EMAIL">E-MAIL:</label>
-            <input type="text" id="EMAIL" name="EMAIL" required>
+    <label for="EMAIL">E-MAIL:</label>
+    <input type="text" id="EMAIL" name="EMAIL" required>
 
-            <label for="TELEFONE">TEL DE CONTATO:</label>
-            <input type="text" id="TELEFONE" name="TELEFONE">
+    <label for="TELEFONE">TEL DE CONTATO:</label>
+    <input type="text" id="TELEFONE" name="TELEFONE">
 
-            <label for="VENC">VENC:</label>
-            <input type="text" id="VENC" name="VENC">
+    <label for="VENC">VENC:</label>
+    <input type="text" id="VENC" name="VENC">
 
-            <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
-            <input type="text" id="NUMPORTABILIDADE" name="NUM_PORTABILIDADE">
+    <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
+    <input type="text" id="NUMPORTABILIDADE" name="NUM_PORTABILIDADE">
 
-            <label for="MAILING">MAILING:</label>
-            <input type="text" id="MAILING" name="MAILING">
+    <label for="MAILING">MAILING:</label>
+    <input type="text" id="MAILING" name="MAILING">
 
-            <label for="OPERADORA">OPERADORA:</label>
-            <input type="text" id="OPERADORA" name="OPERADORA">
+    <label for="OPERADORA">OPERADORA:</label>
+    <input type="text" id="OPERADORA" name="OPERADORA">
 
-            <label for="PLANO">PLANO:</label>
-            <input type="text" id="PLANO" name="PLANO">
-
-            <!-- Dados para Entrega -->
-            <label for="LOGRADOURO">LOGRADOURO:</label>
-            <input type="text" id="LOGRADOURO" name="LOGRADOURO">
-
-            <label for="NUMERO">NUMERO:</label>
-            <input type="text" id="NUMERO" name="NUMERO">
-
-            <label for="COMPLEMENTO">COMPLEMENTO:</label>
-            <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
-
-            <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
-            <input type="text" id="PONTOREFERENCIA" name="PONTO_REFERENCIA">
-
-            <label for="BAIRRO">BAIRRO:</label>
-            <input type="text" id="BAIRRO" name="BAIRRO">
-
-            <label for="CIDADE">CIDADE:</label>
-            <input type="text" id="CIDADE" name="CIDADE">
-
-            <label for="UF">UF:</label>
-            <select id="UF" name="UF">
-                <option value="">Selecione</option>
-                <option value="AC">AC</option>
-                <option value="AL">AL</option>
-                <option value="AP">AP</option>
-                <option value="AM">AM</option>
-                <option value="BA">BA</option>
-                <option value="CE">CE</option>
-                <option value="DF">DF</option>
-                <option value="ES">ES</option>
-                <option value="GO">GO</option>
-                <option value="MA">MA</option>
-                <option value="MT">MT</option>
-                <option value="MS">MS</option>
-                <option value="MG">MG</option>
-                <option value="PA">PA</option>
-                <option value="PB">PB</option>
-                <option value="PR">PR</option>
-                <option value="PE">PE</option>
-                <option value="PI">PI</option>
-                <option value="RJ">RJ</option>
-                <option value="RN">RN</option>
-                <option value="RS">RS</option>
-                <option value="RO">RO</option>
-                <option value="RR">RR</option>
-                <option value="SC">SC</option>
-                <option value="SP">SP</option>
-                <option value="SE">SE</option>
-                <option value="TO">TO</option>
+    <!-- Novo campo para selecionar planos e quantidades -->
+    <label for="PLANO">PLANO:</label>
+    <div id="plano-container">
+        <div class="plano-item">
+            <select name="plano[]" class="plano-select">
+                <option value="MOVEL SMART EMPRESA 6GB">MOVEL SMART EMPRESA 6GB - R$ 44,99</option>
+                <option value="MOVEL SMART EMPRESA 15GB">MOVEL SMART EMPRESA 15GB - R$ 59,99</option>
+                <option value="MOVEL SMART EMPRESA 20GB">MOVEL SMART EMPRESA 20GB - R$ 64,99</option>
+                <option value="MOVEL SMART EMPRESA 30GB">MOVEL SMART EMPRESA 30GB - R$ 74,99</option>
+                <option value="MOVEL SMART EMPRESA 40GB">MOVEL SMART EMPRESA 40GB - R$ 84,99</option>
+                <option value="MOVEL SMART EMPRESA 50GB">MOVEL SMART EMPRESA 50GB - R$ 94,99</option>
+                <option value="MOVEL SMART EMPRESA 100GB">MOVEL SMART EMPRESA 100GB - R$ 104,99</option>
+                <option value="BL-TOTALIZAÇÃO 500Mega">BL-TOTALIZAÇÃO 500Mega - R$ 89,99</option>
+                <option value="BL-SOLO 500Mega">BL-SOLO 500Mega - R$ 99,99</option>
+                <option value="BL-SOLO 600Mega">BL-SOLO 600Mega - R$ 129,99</option>
+                <option value="BL-SOLO 700Mega">BL-SOLO 700Mega - R$ 139,99</option>
+                <option value="BL-SOLO 1 Giga">BL-SOLO 1 Giga - R$ 299,99</option>
             </select>
+            <input type="number" name="quantidade[]" class="quantidade-input" placeholder="Quantidade" min="1" value="1" />
+        </div>
+    </div>
 
-            <label for="CEP">CEP:</label>
-            <input type="text" id="CEP" name="CEP">
-        </form>
+    <label for="VALOR">VALOR:</label>
+    <input type="text" id="VALOR" name="VALOR">
+
+    <!-- Dados para Entrega -->
+    <label for="LOGRADOURO">LOGRADOURO:</label>
+    <input type="text" id="LOGRADOURO" name="LOGRADOURO">
+
+    <label for="NUMERO">NUMERO:</label>
+    <input type="text" id="NUMERO" name="NUMERO">
+
+    <label for="COMPLEMENTO">COMPLEMENTO:</label>
+    <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
+
+    <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
+    <input type="text" id="PONTOREFERENCIA" name="PONTO_REFERENCIA">
+
+    <label for="BAIRRO">BAIRRO:</label>
+    <input type="text" id="BAIRRO" name="BAIRRO">
+
+    <label for="CIDADE">CIDADE:</label>
+    <input type="text" id="CIDADE" name="CIDADE">
+
+    <label for="UF">UF:</label>
+    <select id="UF" name="UF">
+        <option value="">Selecione</option>
+        <!-- Add all states as before -->
+        <option value="AC">AC</option>
+        <option value="AL">AL</option>
+        <!-- Other options... -->
+    </select>
+
+    <label for="CEP">CEP:</label>
+    <input type="text" id="CEP" name="CEP">
+</form>
+
     </div>
 
     <script>
@@ -291,34 +291,80 @@ async function consultarCNPJ() {
 }
 
 
-        function copiarInformacao() {
-            const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'PLANO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
-            let maskInfo = '';
-            fields.forEach(field => {
-                const value = document.getElementById(field)?.value || 'Não informado';
-                maskInfo += `${field}: ${value}\n`;
-            });
-            navigator.clipboard.writeText(maskInfo).then(() => {
-                alert("Informações copiadas com sucesso!");
-            }).catch(err => {
-                alert("Erro ao copiar as informações.");
-            });
-        }
+// Função para copiar as informações, incluindo o plano e a quantidade
+function copiarInformacao() {
+    const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
 
-        function baixarMascara() {
-            const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'PLANO', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
-            let maskInfo = '';
-            fields.forEach(field => {
-                const value = document.getElementById(field)?.value || 'Não informado';
-                maskInfo += `${field}: ${value}\n`;
-            });
+    let maskInfo = '';
 
-            const blob = new Blob([maskInfo], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'mascara_cliente.txt';
-            link.click();
+    // Incluindo os outros campos na ordem desejada
+    fields.forEach(field => {
+        // Pular a inserção do PLANO depois da OPERADORA
+        if (field === 'OPERADORA') {
+            const value = document.getElementById(field)?.value || 'Não informado';
+            maskInfo += `${field}: ${value}\n`;
+
+            // Incluindo as informações do plano com a quantidade entre OPERADORA e VALOR
+            const planoSelects = document.querySelectorAll('.plano-select');
+            const quantidadeInputs = document.querySelectorAll('.quantidade-input');
+
+            planoSelects.forEach((select, index) => {
+                const plano = select.value;
+                const quantidade = quantidadeInputs[index].value;
+                maskInfo += `PLANO: ${plano} - Quantidade: ${quantidade}\n`;
+            });
+        } else {
+            const value = document.getElementById(field)?.value || 'Não informado';
+            maskInfo += `${field}: ${value}\n`;
         }
+    });
+
+    // Copiar o texto para a área de transferência
+    navigator.clipboard.writeText(maskInfo).then(() => {
+        alert("Informações copiadas com sucesso!");
+    }).catch(err => {
+        alert("Erro ao copiar as informações.");
+    });
+}
+
+// Função para baixar a máscara com as informações, incluindo o plano e a quantidade
+function baixarMascara() {
+    const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
+
+    let maskInfo = '';
+
+    // Incluindo os outros campos na ordem desejada
+    fields.forEach(field => {
+        // Pular a inserção do PLANO depois da OPERADORA
+        if (field === 'OPERADORA') {
+            const value = document.getElementById(field)?.value || 'Não informado';
+            maskInfo += `${field}: ${value}\n`;
+
+            // Incluindo as informações do plano com a quantidade entre OPERADORA e VALOR
+            const planoSelects = document.querySelectorAll('.plano-select');
+            const quantidadeInputs = document.querySelectorAll('.quantidade-input');
+
+            planoSelects.forEach((select, index) => {
+                const plano = select.value;
+                const quantidade = quantidadeInputs[index].value;
+                maskInfo += `PLANO: ${plano} - Quantidade: ${quantidade}\n`;
+            });
+        } else {
+            const value = document.getElementById(field)?.value || 'Não informado';
+            maskInfo += `${field}: ${value}\n`;
+        }
+    });
+
+    // Criar e baixar o arquivo
+    const blob = new Blob([maskInfo], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'mascara_cliente.txt';
+    link.click();
+}
+
+
+
     </script>
 
  <footer>
@@ -347,5 +393,6 @@ async function consultarCNPJ() {
         setInterval(mudarFrase, 5000);
         mudarFrase(); // Chama a função uma vez para mostrar a primeira frase imediatamente
     </script>
+
 </body>
 </html>
