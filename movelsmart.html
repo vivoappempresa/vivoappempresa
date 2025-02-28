@@ -351,63 +351,67 @@
         ];
 
         // Função para adicionar o plano de 1GB por R$ 29,99 caso a senha seja correta
-        function addDiscountPlan() {
-            const password = document.getElementById('supervisor-password').value;
-            if (password === '17172025') { // Senha correta
-                plans.push({ name: '1GB', gb: 1, price: 29.99 }); // Adiciona o plano de 1GB por R$ 29,99
-                alert('Plano de 1GB adicionado com sucesso!');
-            } else {
-                
-            }
-        }
-
-    function analyzeBestPlan() {
-        addDiscountPlan(); // Adiciona o plano de desconto se a senha estiver correta
-
-        const valor = parseFloat(document.getElementById('valor').value) || 0;
-        const gbTotal = parseInt(document.getElementById('gb').value) || 0;
-        const linhas = parseInt(document.getElementById('linhas').value) || 1;
-        const suggestionsElem = document.getElementById('suggestions');
-        suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
-
-        if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
-            suggestionsElem.innerHTML = '<p>Preencha todos os campos corretamente.</p>';
-            return;
-        }
-
-        // Gerar todas as combinações para o número de linhas informado
-        const allCombinations = getCombinations(linhas);
-
-        // Mapeia as combinações para seus totais: custo e GB
-        const validCombs = allCombinations.map(comb => {
-            let totalCost = comb.reduce((acc, p) => acc + p.price, 0);
-            let totalGb = comb.reduce((acc, p) => acc + p.gb, 0);
-
-            // Adiciona R$ 5 em cada linha como valor adicional
-            totalCost += 5 * linhas;
-
-            return { combination: comb, totalCost, totalGb };
-        })
-        .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
-
-        if (validCombs.length === 0) {
-            suggestionsElem.innerHTML = '<p>Não foi possível encontrar uma combinação que atenda os requisitos.</p>';
-            return;
-        }
-
-        // Limita o número de sugestões a 3
-        validCombs.slice(0, 3);
-
-        // Exibe os resultados
-        let html = '<h3>Sugestões:</h3>';
-        validCombs.slice(0, 3).forEach(item => {
-            html += `<div class='suggestion-box'><strong>Plano sugerido:</strong><br>`;
-            html += summarizeCombination(item.combination);
-            html += `<br>Total: R$ ${(item.totalCost).toFixed(2)} | GB Total: ${item.totalGb}GB</div>`;
-        });
-
-        suggestionsElem.innerHTML = html;
+// Função para adicionar o plano de desconto e redirecionar dependendo da senha
+function addDiscountPlan() {
+    const password = document.getElementById('supervisor-password').value;
+    
+    if (password === '17172025') { // Senha para adicionar plano de 1GB
+        plans.push({ name: '1GB', gb: 1, price: 29.99 }); // Adiciona o plano de 1GB por R$ 29,99
+        alert('Plano de 1GB adicionado com sucesso!');
+    } else if (password === 'bruna2025') { // Nova senha para redirecionamento
+        window.location.href = 'equipebruna2025.html'; // Redireciona para a página específica
     }
+}
+
+// Função para analisar o melhor plano
+function analyzeBestPlan() {
+    addDiscountPlan(); // Chama a função para adicionar plano de desconto ou redirecionar
+
+    const valor = parseFloat(document.getElementById('valor').value) || 0;
+    const gbTotal = parseInt(document.getElementById('gb').value) || 0;
+    const linhas = parseInt(document.getElementById('linhas').value) || 1;
+    const suggestionsElem = document.getElementById('suggestions');
+    suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
+
+    if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
+        suggestionsElem.innerHTML = '<p>Preencha todos os campos corretamente.</p>';
+        return;
+    }
+
+    // Gerar todas as combinações para o número de linhas informado
+    const allCombinations = getCombinations(linhas);
+
+    // Mapeia as combinações para seus totais: custo e GB
+    const validCombs = allCombinations.map(comb => {
+        let totalCost = comb.reduce((acc, p) => acc + p.price, 0);
+        let totalGb = comb.reduce((acc, p) => acc + p.gb, 0);
+
+        // Adiciona R$ 5 em cada linha como valor adicional
+        totalCost += 5 * linhas;
+
+        return { combination: comb, totalCost, totalGb };
+    })
+    .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
+
+    if (validCombs.length === 0) {
+        suggestionsElem.innerHTML = '<p>Não foi possível encontrar uma combinação que atenda os requisitos.</p>';
+        return;
+    }
+
+    // Limita o número de sugestões a 3
+    validCombs.slice(0, 3);
+
+    // Exibe os resultados
+    let html = '<h3>Sugestões:</h3>';
+    validCombs.slice(0, 3).forEach(item => {
+        html += `<div class='suggestion-box'><strong>Plano sugerido:</strong><br>`;
+        html += summarizeCombination(item.combination);
+        html += `<br>Total: R$ ${(item.totalCost).toFixed(2)} | GB Total: ${item.totalGb}GB</div>`;
+    });
+
+    suggestionsElem.innerHTML = html;
+}
+
 
     // Função recursiva para gerar combinações (com repetição)
     function getCombinations(n, start = 0, current = [], all = []) {
