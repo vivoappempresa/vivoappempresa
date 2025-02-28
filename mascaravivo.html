@@ -115,9 +115,65 @@
         #consultaSituacaoCadastral button:hover {
             background-color: #218838;
         }
+
+    /* Estilos para o balão */
+    .balão {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: #f5f5f5;
+      border: 2px solid #000;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+      overflow: hidden; /* Esconde o texto que sai do balão */
+      width: 300px; /* Largura do balão */
+    }
+
+    .balão p {
+      white-space: nowrap;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      animation: moverTexto 15s linear infinite; /* Aplica a animação ao texto */
+      color: black;
+    }
+
+    /* Animação do movimento do texto */
+    @keyframes moverTexto {
+      0% {
+        transform: translateX(30%); /* Começa fora da tela à direita */
+      }
+      100% {
+        transform: translateX(-100%); /* Termina fora da tela à esquerda */
+      }
+    }
+
+    .balão::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent transparent #000000;
+      transform: translateY(-50%);
+    }
+<!-- bala do banco --!>
+
     </style>
 </head>
 <body>
+
+<!-- Balão do banco -->
+  <div class="balão">
+    <p>
+      Seja bem-vindo aos planos e ofertas Vivo, nunca desista dos seus sonho, entenda que todo esforço e valido!
+    </p>
+  </div>
 
     <!-- Botão Voltar -->
     <button class="back-button" onclick="window.location.href='index.html'">
