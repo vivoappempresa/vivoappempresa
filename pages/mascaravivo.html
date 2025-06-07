@@ -5,196 +5,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mascara Cliente</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+    <!-- Navbar superior -->
+    <nav class="navbar" role="navigation" aria-label="Menu principal">
+        <div class="navbar-brand">
+            <img src="img/vivo-120.svg" alt="Logo Vivo" />
+        </div>
 
-    <!-- Botão Voltar -->
-    <button class="back-button" onclick="window.location.href='../index.html'">
-        <span class="arrow">&larr;</span> Voltar
-    </button>
-    </head>
+        <div class="menu-toggle" aria-label="Abrir menu" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-    <body>
-        <div class="container">
-            <h1>Preenchimento de Dados</h1>
+        <div class="nav-links">
+            <a href="../index.html" aria-label="Voltar para página inicial">Início</a>
+            <a href="mascaravivo.html" aria-label="Ir para Mascara Cliente">Mascara Cliente</a>
+            <a href="vivototal.html" aria-label="Ir para Vivo Total">Vivo Total</a>
+            <a href="movelsmart.html" aria-label="Ir para Plano Smart Empresa">Plano Smart Empresa</a>
+            <a href="descontoporvolume.html" aria-label="Ver Desconto por volume">Desconto por volume</a>
+            <a href="esim.html" aria-label="Ver aparelhos compatíveis com eSIM">Aparelhos eSIM</a>
+        </div>
+    </nav>
 
-            <!-- Caixa de texto para colar as informações -->
-            <textarea id="dadosCopiados" rows="10" placeholder="Cole as informações copiadas aqui..."></textarea>
+    <div class="container">
+        <h1>Preenchimento de Dados</h1>
+
+        <!-- Caixa de texto para colar as informações -->
+        <textarea id="dadosCopiados" rows="10" placeholder="Cole as informações copiadas aqui..."></textarea>
+
+        <div class="actions">
+            <button type="button" onclick="preencherFormulario()">Preencher Formulário</button>
+            <button type="button" onclick="extrairMascara()">Extrair Máscara</button>
+            <button type="button" onclick="copiarInformacao()">Copiar Informação</button>
+        </div>
+
+        <form id="mascaraForm">
+            <!-- Dados da Empresa -->
+            <label for="CNPJ">CNPJ:</label>
+            <input type="text" id="CNPJ" name="CNPJ" required>
+
+            <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
+            <input type="text" id="RAZAOSOCIAL" name="RAZAO_SOCIAL" required>
+
+            <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
+            <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTE_LEGAL">
+
+            <label for="CPF">CPF:</label>
+            <input type="text" id="CPF" name="CPF">
+
+            <label for="RG">RG:</label>
+            <input type="text" id="RG" name="RG">
+
+            <label for="EMAIL">E-MAIL:</label>
+            <input type="text" id="EMAIL" name="EMAIL" required>
+
+            <label for="TELEFONE">TEL DE CONTATO:</label>
+            <input type="text" id="TELEFONE" name="TELEFONE">
+
+            <label for="VENC">VENC:</label>
+            <input type="text" id="VENC" name="VENC">
+
+            <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
+            <input type="text" id="NUMPORTABILIDADE" name="NUM_PORTABILIDADE">
+
+            <label for="MAILING">MAILING:</label>
+            <input type="text" id="MAILING" name="MAILING">
+
+            <label for="OPERADORA">OPERADORA:</label>
+            <input type="text" id="OPERADORA" name="OPERADORA">
+
+            <label for="PLANO">PLANO:</label>
+            <input type="text" id="PLANO" name="PLANO">
+
+            <!-- Dados para Entrega -->
+            <label for="LOGRADOURO">LOGRADOURO:</label>
+            <input type="text" id="LOGRADOURO" name="LOGRADOURO">
+
+            <label for="NUMERO">NUMERO:</label>
+            <input type="text" id="NUMERO" name="NUMERO">
+
+            <label for="COMPLEMENTO">COMPLEMENTO:</label>
+            <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
+
+            <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
+            <input type="text" id="PONTOREFERENCIA" name="PONTO_REFERENCIA">
+
+            <label for="BAIRRO">BAIRRO:</label>
+            <input type="text" id="BAIRRO" name="BAIRRO">
+
+            <label for="CIDADE">CIDADE:</label>
+            <input type="text" id="CIDADE" name="CIDADE">
+
+            <label for="UF">UF:</label>
+            <select id="UF" name="UF">
+                <option value="">Selecione</option>
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AP">AP</option>
+                <option value="AM">AM</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MT">MT</option>
+                <option value="MS">MS</option>
+                <option value="MG">MG</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PR">PR</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RS">RS</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="SC">SC</option>
+                <option value="SP">SP</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+            </select>
+
+            <label for="CEP">CEP:</label>
+            <input type="text" id="CEP" name="CEP">
 
             <div class="actions">
-                <button type="button" onclick="preencherFormulario()">Preencher Formulário</button>
                 <button type="button" onclick="extrairMascara()">Extrair Máscara</button>
                 <button type="button" onclick="copiarInformacao()">Copiar Informação</button>
             </div>
+        </form>
+    </div>
 
-            <form id="mascaraForm">
-                <!-- Dados da Empresa -->
-                <label for="CNPJ">CNPJ:</label>
-                <input type="text" id="CNPJ" name="CNPJ" required>
+    <img src="img/vivo-120.svg" alt="Logo Vivo" />
 
-                <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
-                <input type="text" id="RAZAOSOCIAL" name="RAZAO_SOCIAL" required>
+    <script>
+        function preencherFormulario() {
+            const dados = document.getElementById('dadosCopiados').value;
 
-                <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
-                <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTE_LEGAL">
+            // Expressões regulares ajustadas para os dados fornecidos
+            const regexRazaoSocial = /RAZAO_SOCIAL:\s*([^\n]+)/;
+            const regexCNPJ = /CNPJ:\s*([^\n]+)/;
+            const regexLogradouro = /ENDEREÇO:\s*([^\n]+)/;
+            const regexNumero = /NUMERO:\s*([^\n]+)/;
+            const regexViabilidade = /VIABILIDADE\s*([^\n]+)/;
+            const regexCep = /CEP:\s*([^\n]+)/;
+            const regexCidade = /CIDADE:\s*([^\n]+)/;
+            const regexUf = /UF:\s*([^\n]+)/;
+            const regexOperadora = /OPERADORA:\s*([^\n]+)/;
+            const regexMailing = /NOME_MAILING:\s*([^\n]+)/;
 
-                <label for="CPF">CPF:</label>
-                <input type="text" id="CPF" name="CPF">
-
-                <label for="RG">RG:</label>
-                <input type="text" id="RG" name="RG">
-
-                <label for="EMAIL">E-MAIL:</label>
-                <input type="text" id="EMAIL" name="EMAIL" required>
-
-                <label for="TELEFONE">TEL DE CONTATO:</label>
-                <input type="text" id="TELEFONE" name="TELEFONE">
-
-                <label for="VENC">VENC:</label>
-                <input type="text" id="VENC" name="VENC">
-
-                <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
-                <input type="text" id="NUMPORTABILIDADE" name="NUM_PORTABILIDADE">
-
-                <label for="MAILING">MAILING:</label>
-                <input type="text" id="MAILING" name="MAILING">
-
-                <label for="OPERADORA">OPERADORA:</label>
-                <input type="text" id="OPERADORA" name="OPERADORA">
-
-                <label for="PLANO">PLANO:</label>
-                <input type="text" id="PLANO" name="PLANO">
-
-                <!-- Dados para Entrega -->
-                <label for="LOGRADOURO">LOGRADOURO:</label>
-                <input type="text" id="LOGRADOURO" name="LOGRADOURO">
-
-                <label for="NUMERO">NUMERO:</label>
-                <input type="text" id="NUMERO" name="NUMERO">
-
-                <label for="COMPLEMENTO">COMPLEMENTO:</label>
-                <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
-
-                <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
-                <input type="text" id="PONTOREFERENCIA" name="PONTO_REFERENCIA">
-
-                <label for="BAIRRO">BAIRRO:</label>
-                <input type="text" id="BAIRRO" name="BAIRRO">
-
-                <label for="CIDADE">CIDADE:</label>
-                <input type="text" id="CIDADE" name="CIDADE">
-
-                <label for="UF">UF:</label>
-                <select id="UF" name="UF">
-                    <option value="">Selecione</option>
-                    <option value="AC">AC</option>
-                    <option value="AL">AL</option>
-                    <option value="AP">AP</option>
-                    <option value="AM">AM</option>
-                    <option value="BA">BA</option>
-                    <option value="CE">CE</option>
-                    <option value="DF">DF</option>
-                    <option value="ES">ES</option>
-                    <option value="GO">GO</option>
-                    <option value="MA">MA</option>
-                    <option value="MT">MT</option>
-                    <option value="MS">MS</option>
-                    <option value="MG">MG</option>
-                    <option value="PA">PA</option>
-                    <option value="PB">PB</option>
-                    <option value="PR">PR</option>
-                    <option value="PE">PE</option>
-                    <option value="PI">PI</option>
-                    <option value="RJ">RJ</option>
-                    <option value="RN">RN</option>
-                    <option value="RS">RS</option>
-                    <option value="RO">RO</option>
-                    <option value="RR">RR</option>
-                    <option value="SC">SC</option>
-                    <option value="SP">SP</option>
-                    <option value="SE">SE</option>
-                    <option value="TO">TO</option>
-                </select>
-
-                <label for="CEP">CEP:</label>
-                <input type="text" id="CEP" name="CEP">
-
-                <div class="actions">
-                    <button type="button" onclick="extrairMascara()">Extrair Máscara</button>
-                    <button type="button" onclick="copiarInformacao()">Copiar Informação</button>
-                </div>
-            </form>
-        </div>
-
-        <img src="img/vivo-120.svg" alt="Logo Vivo" />
-
-        <script>
-            function preencherFormulario() {
-                const dados = document.getElementById('dadosCopiados').value;
-
-                // Expressões regulares ajustadas para os dados fornecidos
-                const regexRazaoSocial = /RAZAO_SOCIAL:\s*([^\n]+)/;
-                const regexCNPJ = /CNPJ:\s*([^\n]+)/;
-                const regexLogradouro = /ENDEREÇO:\s*([^\n]+)/;
-                const regexNumero = /NUMERO:\s*([^\n]+)/;
-                const regexViabilidade = /VIABILIDADE\s*([^\n]+)/;
-                const regexCep = /CEP:\s*([^\n]+)/;
-                const regexCidade = /CIDADE:\s*([^\n]+)/;
-                const regexUf = /UF:\s*([^\n]+)/;
-                const regexOperadora = /OPERADORA:\s*([^\n]+)/;
-                const regexMailing = /NOME_MAILING:\s*([^\n]+)/;
-
-                // Função para preencher os campos com os dados extraídos
-                function preencherCampo(campoId, regex, grupo = 1) {
-                    const resultado = dados.match(regex);
-                    if (resultado) {
-                        document.getElementById(campoId).value = resultado[grupo].trim();
-                    }
+            // Função para preencher os campos com os dados extraídos
+            function preencherCampo(campoId, regex, grupo = 1) {
+                const resultado = dados.match(regex);
+                if (resultado) {
+                    document.getElementById(campoId).value = resultado[grupo].trim();
                 }
-
-                // Preenchendo os campos do formulário
-                preencherCampo('RAZAOSOCIAL', regexRazaoSocial);
-                preencherCampo('CNPJ', regexCNPJ);
-                preencherCampo('LOGRADOURO', regexLogradouro);
-                preencherCampo('NUMERO', regexNumero);
-                preencherCampo('VENC', regexViabilidade); // Se necessário, ajuste o campo correto
-                preencherCampo('CEP', regexCep);
-                preencherCampo('CIDADE', regexCidade);
-                preencherCampo('UF', regexUf);
-                preencherCampo('OPERADORA', regexOperadora);
-                preencherCampo('MAILING', regexMailing);
             }
 
-            function formatarDados() {
-                const form = document.getElementById('mascaraForm');
-                const formData = new FormData(form);
-                let dadosFormatados = '';
-                for (const [key, value] of formData.entries()) {
-                    dadosFormatados += `${key.toUpperCase()}: ${value}\n`;
-                }
-                return dadosFormatados;
-            }
+            // Preenchendo os campos do formulário
+            preencherCampo('RAZAOSOCIAL', regexRazaoSocial);
+            preencherCampo('CNPJ', regexCNPJ);
+            preencherCampo('LOGRADOURO', regexLogradouro);
+            preencherCampo('NUMERO', regexNumero);
+            preencherCampo('VENC', regexViabilidade); // Se necessário, ajuste o campo correto
+            preencherCampo('CEP', regexCep);
+            preencherCampo('CIDADE', regexCidade);
+            preencherCampo('UF', regexUf);
+            preencherCampo('OPERADORA', regexOperadora);
+            preencherCampo('MAILING', regexMailing);
+        }
 
-            function extrairMascara() {
-                const form = document.getElementById('mascaraForm');
-                const razaoSocial = form.querySelector('#RAZAOSOCIAL').value;
-                const dados = formatarDados();
-                const blob = new Blob([dados], { type: 'text/plain;charset=utf-8' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = `${razaoSocial || 'mascara_cliente'}.txt`;
-                link.click();
+        function formatarDados() {
+            const form = document.getElementById('mascaraForm');
+            const formData = new FormData(form);
+            let dadosFormatados = '';
+            for (const [key, value] of formData.entries()) {
+                dadosFormatados += `${key.toUpperCase()}: ${value}\n`;
             }
+            return dadosFormatados;
+        }
 
-            function copiarInformacao() {
-                const dados = formatarDados();
-                navigator.clipboard.writeText(dados)
-                    .then(() => alert('Informações copiadas para a área de transferência!'))
-                    .catch(err => alert('Erro ao copiar informações: ' + err));
-            }
-        </script>
-    </body>
+        function extrairMascara() {
+            const form = document.getElementById('mascaraForm');
+            const razaoSocial = form.querySelector('#RAZAOSOCIAL').value;
+            const dados = formatarDados();
+            const blob = new Blob([dados], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${razaoSocial || 'mascara_cliente'}.txt`;
+            link.click();
+        }
+
+        function copiarInformacao() {
+            const dados = formatarDados();
+            navigator.clipboard.writeText(dados)
+                .then(() => alert('Informações copiadas para a área de transferência!'))
+                .catch(err => alert('Erro ao copiar informações: ' + err));
+        }
+    </script>
+</body>
 
 </html>
