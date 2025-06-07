@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivo Total</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Botão Voltar -->
+    <button class="back-button" onclick="window.location.href='index.html'">
+        <span class="arrow">&larr;</span> Voltar
+    </button>
+
+</body>
+
+<script>
+    function calculateTotal() {
+        let total = 0;
+
+        const broadband = document.querySelector('input[name="broadband"]:checked');
+        const mobile = document.querySelector('input[name="mobile"]:checked');
+        const unlimited = document.getElementById('unlimited');
+        const mdm = document.getElementById('mdm');  // Selecionando o MDM
+
+        // Soma os preços de banda larga selecionados
+        if (broadband) {
+            total += parseFloat(broadband.value);
+        }
+        // Soma os preços dos planos móveis selecionados
+        if (mobile) {
+            total += parseFloat(mobile.value);
+        }
+        // Adiciona o valor do plano ilimitado Empresas Brasil, se selecionado
+        if (unlimited.checked) {
+            total += parseFloat(unlimited.value);
+        }
+        // Adiciona o valor do MDM, se selecionado
+        if (mdm.checked) {
+            total += 6.90;  // MDM R$ 6,90
+        }
+
+        // Atualiza o título e a imagem dependendo das seleções
+        if (broadband && mobile && unlimited.checked) {
+            document.querySelector('h1').textContent = "Oferta Vivo Total";
+            document.querySelector('img').src = "vivototal.png";  // Caminho relativo para imagem
+        } else if (broadband && mobile) {
+            document.querySelector('h1').textContent = "Oferta Vivo Total 2P MÓVEL";
+            document.querySelector('img').src = "vivototal2p.png";  // Caminho relativo para imagem
+        }
+
+        // Exibe o preço total
+        document.getElementById('totalPrice').textContent = `Preço Total: R$ ${total.toFixed(2)}`;
+    }
+
+    document.addEventListener('change', calculateTotal);
+</script>
+
+<body>
+
+    <div class="container">
+        <h1>Oferta Vivo Total</h1>
+
+        <div class="section">
+            <h3>Banda Larga Fixa</h3>
+            <label><input type="radio" name="broadband" value="99.99"> 500 Mega - R$ 99,99</label>
+            <label><input type="radio" name="broadband" value="129.99"> 600 Mega - R$ 129,99</label>
+            <label><input type="radio" name="broadband" value="139.99"> 700 Mega - R$ 139,99</label>
+            <label><input type="radio" name="broadband" value="299.99"> 1 Giga - R$ 299,99</label>
+        </div>
+
+        <div class="section">
+            <h3>Ilimitado Empresas Brasil</h3>
+            <label><input type="checkbox" id="unlimited" value="30"> R$30</label>
+        </div>
+
+        <!-- Adicionando a opção de MDM -->
+        <div class="section">
+            <h3>Adicionar MDM</h3>
+            <label><input type="checkbox" id="mdm"> MDM (+ R$ 6,90)</label>
+        </div>
+
+        <div class="section">
+            <h3>Planos Móveis</h3>
+            <label><input type="radio" name="mobile" value="39.99"> 6GB - R$ 39,99</label>
+            <label><input type="radio" name="mobile" value="54.99"> 15GB - R$ 54,99</label>
+            <label><input type="radio" name="mobile" value="59.99"> 20GB - R$ 59,99</label>
+            <label><input type="radio" name="mobile" value="69.99"> 30GB - R$ 69,99</label>
+            <label><input type="radio" name="mobile" value="79.99"> 40GB - R$ 79,99</label>
+            <label><input type="radio" name="mobile" value="89.99"> 50GB - R$ 89,99</label>
+            <label><input type="radio" name="mobile" value="99.99"> 100GB - R$ 99,99</label>
+        </div>
+
+        <h2 id="totalPrice">Preço Total: R$ 0,00</h2>
+    </div>
+
+    <img src="img/vivo-120.svg" alt="Logo Vivo" />
+
+    <div class="benefits">
+        <h3>Benefícios</h3>
+        <p>20GB + INCLUSO NO SEU PLANO</p>
+        <p>Conexão rápida e estável para seu negócio.</p>
+        <p>Planos móveis com opções variadas para atender suas necessidades.</p>
+        <p>Bônus de internet disponíveis com o plano ilimitado Empresas Brasil.</p>
+    </div>
+
+    <a href="descontoporvolume.html" aria-label="Ver Desconto por volume">Desconto por volume</a>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+/* style.css - Estilos globais do simulador Vivo */
+:root {
+    --primary-color: #f3f4f6;
+    --secondary-color: #FF4500;
+    --accent-color: #FFD700;
+    --text-color: white;
+    --nav-bg: #333;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-color);
+    color: #222;
+    line-height: 1.6;
+}
+.content {
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.content h1 {
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+.logo {
+    margin-bottom: 30px;
+}
+.logo img {
+    width: 150px;
+    height: auto;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-items: center;
+    align-items: stretch;
+    margin-top: 30px;
+}
+.menu-card {
+    background-color: var(--nav-bg);
+    color: var(--text-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    padding: 40px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    min-width: 220px;
+    max-width: 320px;
+    height: 200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.menu-card:hover {
+    background-color: var(--secondary-color);
+    color: #fff;
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+.menu-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+@media (max-width: 900px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+    .content h1 {
+        font-size: 1.5rem;
+    }
+    .menu-card {
+        font-size: 1rem;
+        padding: 25px 10px;
+        min-height: 120px;
+        height: 140px;
+        min-width: 120px;
+        max-width: 100%;
+    }
+} 
