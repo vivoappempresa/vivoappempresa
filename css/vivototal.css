@@ -1,0 +1,85 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #6A0DAD;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.container {
+    width: 70%;
+    text-align: left;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.section input {
+    margin-right: 10px;
+}
+
+/* Adicionando a centralização da imagem logo avanti */
+img {
+    max-width: 50%;
+    height: auto;
+    margin-left: auto;
+    display: block;
+    margin-top: 10px;
+    margin-right: 225px;
+
+}
+
+.imagem-especial {
+    max-width: 50%;
+    height: auto;
+    margin-left: auto;
+    display: block;
+    margin-top: 10px;
+    margin-right: 225px;
+}
+
+#totalPrice {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.benefits {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.back-button {
+    background-color: blue;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: green;
+}
+
+.back-button .arrow {
+    margin-right: 8px;
+} 

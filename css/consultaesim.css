@@ -1,0 +1,79 @@
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    position: fixed; /* Rodapé fixo */
+    bottom: 0;
+    width: 100%; /* Para ocupar toda a largura da tela */
+    background-color: #333; /* Cor de fundo do rodapé */
+    color: white; /* Cor do texto */
+}
+body {
+    background-color: purple; /* Cor do fundo roxo */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Alinha o conteúdo verticalmente */
+    min-height: 100vh;
+    margin: 0;
+    color: white; /* Cor do texto */
+}
+.container {
+    text-align: center;
+    flex: 1; /* Faz o conteúdo ocupar o restante do espaço */
+}
+.search-bar {
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+}
+.device-list {
+    list-style: none;
+    padding: 0;
+    display: none; /* Inicialmente, a lista é invisível */
+    max-height: 400px;
+    overflow-y: auto;
+}
+.device-item {
+    padding: 8px;
+    background-color: #333;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+.device-item:hover {
+    background-color: #444;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.back-button:hover {
+    background-color: green;
+}
+
+.back-button .arrow {
+    margin-right: 8px;
+}
+
+   .imagem-especial {
+    max-width: 50%;
+    height: auto;
+    margin-left: auto;
+    display: block;
+    margin-top: 10px;
+    margin-right: 590px;
+}

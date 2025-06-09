@@ -1,0 +1,172 @@
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 10px;
+    /* Ajuste o valor se necessário */
+  }
+
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .benefits {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 10px;
+    /* Ajuste o valor se necessário */
+    width: 250px;
+    /* Ajuste o tamanho conforme necessário */
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #6A0DAD;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    width: 40%;
+    text-align: left;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .section label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .section input[type="number"] {
+    width: 50px;
+    margin-left: 10px;
+  }
+
+  #totalPrice {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .benefits {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  /* Ocultar as caixas de seleção */
+  .mobile-plan input[type="checkbox"] {
+    display: none;
+  }
+
+  /* Personalizar o texto para simular uma caixa de seleção */
+  .mobile-plan label {
+    cursor: pointer;
+  }
+
+  .mobile-plan input[type="checkbox"]:checked+span::before {
+    content: "✓";
+    /* Marca como selecionado */
+    margin-right: 10px;
+  }
+
+  .mobile-plan span::before {
+    content: "☐";
+    /* Caixa de seleção vazia */
+    margin-right: 10px;
+  }
+
+  /* Estilos para o analisador de plano */
+  .analyzer {
+    width: 60%;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .analyzer label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .analyzer input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+  .analyzer button {
+    padding: 10px;
+    background-color: #fff;
+    color: #6A0DAD;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .suggestion-box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin: 10px 0;
+    text-align: left;
+  }
+
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+  }
+
+  .back-button {
+    background-color: blue;
+    /* Cor inicial do botão */
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .back-button:hover {
+    background-color: green;
+    /* Cor ao passar o mouse */
+  }
+
+  .back-button .arrow {
+    margin-right: 8px;
+  }
