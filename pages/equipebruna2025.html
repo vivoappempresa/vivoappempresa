@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despedida Alegre da Equipe</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1e2a47;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+        .title {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 223, 0, 0.8), 0 0 30px rgba(255, 223, 0, 0.5);
+            color: #ffdd57;
+        }
+        .message {
+            font-size: 1.5em;
+            margin-top: 20px;
+            line-height: 1.8;
+            color: #ecf0f1;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+        }
+        .photos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .photos img {
+            border-radius: 15px;
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+        }
+        .photos img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        }
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .firework {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            animation: fireworkAnim 1.2s ease-out infinite;
+        }
+
+        /* Animação dos fogos de artifício */
+        @keyframes fireworkAnim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+                background-color: rgba(255, 99, 71, 0.8);
+            }
+            25% {
+                background-color: rgba(255, 223, 0, 0.9);
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.6;
+                background-color: rgba(34, 193, 195, 0.9);
+            }
+            75% {
+                background-color: rgba(238, 130, 238, 0.8);
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Efeito de partículas de brilho */
+        .glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.5) 50%, transparent 80%);
+            animation: glowEffect 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes glowEffect {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+
+    <div class="fireworks"></div>
+
+    <div class="container">
+        <div class="title">Melhor equipe 2025 e sua bruna!</div>
+        <div class="message">
+            Trabalhar com você foi uma experiência incrível! Aprendemos muito juntos e as memórias que fizemos serão sempre lembradas com carinho. Embora cada um siga seu caminho, a amizade e a parceria que construímos na equipe nunca serão esquecidas. Obrigado por tudo, e que o sucesso continue iluminando nossa jornada, quero agradecer a cada um de vocês por todos momentos e oque aprendi como pessoa e voluir graça a cada uma de vocês!
+        </div>
+
+        <div class="photos">
+            <img src="bruna1.jpg" alt="Foto 1">
+            <img src="bruna2.jpg" alt="Foto 2">
+        </div>
+    </div>
+
+    <script>
+        // Função para criar os fogos de artifício
+        function createFireworks() {
+            const fireworksContainer = document.querySelector('.fireworks');
+            
+            for (let i = 0; i < 15; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.left = `${Math.random() * 100}%`;
+                firework.style.top = `${Math.random() * 100}%`;
+                firework.style.animationDuration = `${Math.random() * 1.5 + 0.5}s`;
+                
+                fireworksContainer.appendChild(firework);
+            }
+        }
+
+        // Criar os fogos de artifício
+        createFireworks();
+    </script>
+
+</body>
+</html>

@@ -1,154 +1,171 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VIVO SMART EMPRESA</title>
-  <link rel="stylesheet" href="../css/style.css">
+	<head>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/46/46010.png" type="image/x-icon">
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIVO SMART EMPRESA</title>
+    <style>
+	            footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 10px; /* Ajuste o valor se necessário */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .benefits {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 10px; /* Ajuste o valor se necessário */
+            width: 250px; /* Ajuste o tamanho conforme necessário */
+        }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #6A0DAD;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      width: 40%;
+      text-align: left;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .section input[type="number"] {
+      width: 50px;
+      margin-left: 10px;
+    }
+    #totalPrice {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .benefits {
+      margin-top: 30px;
+      text-align: center;
+    }
+    /* Ocultar as caixas de seleção */
+    .mobile-plan input[type="checkbox"] {
+      display: none;
+    }
+    /* Personalizar o texto para simular uma caixa de seleção */
+    .mobile-plan label {
+      cursor: pointer;
+    }
+    .mobile-plan input[type="checkbox"]:checked + span::before {
+      content: "✓"; /* Marca como selecionado */
+      margin-right: 10px;
+    }
+    .mobile-plan span::before {
+      content: "☐"; /* Caixa de seleção vazia */
+      margin-right: 10px;
+    }
+    /* Estilos para o analisador de plano */
+    .analyzer {
+      width: 60%;
+      margin: 20px auto;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .analyzer label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .analyzer input[type="number"] {
+      width: 100px;
+      padding: 5px;
+      margin-left: 10px;
+    }
+    .analyzer button {
+      padding: 10px;
+      background-color: #fff;
+      color: #6A0DAD;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .suggestion-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      margin: 10px 0;
+      text-align: left;
+    }
+	<head>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            background-color: blue; /* Cor inicial do botão */
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: green; /* Cor ao passar o mouse */
+        }
+
+        .back-button .arrow {
+            margin-right: 8px;
+        }
+    </style>
 </head>
 
-<body>
-  <!-- Navbar superior -->
-  <nav class="navbar" role="navigation" aria-label="Menu principal">
-    <div class="navbar-brand">
-      <img src="img/vivo-120.svg" alt="Logo Vivo" />
-    </div>
 
-    <div class="menu-toggle" aria-label="Abrir menu" role="button" tabindex="0">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+<!-- Botão com seta -->
+<button class="back-button" onclick="window.location.href='../index.html'">
+    <span class="arrow">&larr;</span> Voltar
+</button>
 
-    <div class="nav-links">
-      <a href="../index.html" aria-label="Voltar para página inicial">Início</a>
-      <a href="mascaravivo.html" aria-label="Ir para Mascara Cliente">Mascara Cliente</a>
-      <a href="vivototal.html" aria-label="Ir para Vivo Total">Vivo Total</a>
-      <a href="movelsmart.html" aria-label="Ir para Plano Smart Empresa">Plano Smart Empresa</a>
-      <a href="descontoporvolume.html" aria-label="Ver Desconto por volume">Desconto por volume</a>
-      <a href="esim.html" aria-label="Ver aparelhos compatíveis com eSIM">Aparelhos eSIM</a>
-    </div>
-  </nav>
+</body>
 
-  <div class="container">
-    <h1>Móvel Planos Smart Empresas</h1>
-
-    <div class="section">
-      <h3>Planos Móveis</h3>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="39.99" data-gb="6"> 6GB - R$ 39,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="54.99" data-gb="15"> 15GB - R$ 54,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="59.99" data-gb="20"> 20GB - R$ 59,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="69.99" data-gb="30"> 30GB - R$ 69,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="79.99" data-gb="40"> 40GB - R$ 79,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="89.99" data-gb="50"> 50GB - R$ 89,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-      <div class="mobile-plan">
-        <label>
-          <input type="checkbox" value="99.99" data-gb="100"> 100GB - R$ 99,99
-          <input type="number" min="0" value="0">
-          <span></span>
-        </label>
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Adicionar MDM</h3>
-      <label>
-        <input type="number" id="mdm-quantity" value="0" min="0"> Quantidade de MDM (+ R$ 5 cada)
-      </label>
-    </div>
-
-    <div class="section">
-      <h3>Adicionais</h3>
-      <label>
-        <input type="checkbox" id="additional1" value="10.00" data-gb="10">
-        10GB + Redes sociais
-      </label>
-      <label>
-        <input type="checkbox" id="additional2" value="10">
-        10GB + streaming \YouTube\TikTok
-      </label>
-    </div>
-
-    <h2 id="totalPrice">Preço Total: R$ 0,00</h2>
-    <h3 id="totalGB">Total de GB: 0GB</h3>
-  </div>
-
-  <!-- Imagem que será alterada conforme a seleção de MDM -->
-  <img class="changeable" src="movelsmart.png" alt="Móvel Planos Smart Empresas"
-    style="max-width:50%; display:block; margin:20px auto;">
-
-  <br>
-  <br>
-
-  <!-- Seção do analisador, inserida abaixo da imagem -->
-  <div class="analyzer">
-    <h3>Gerar Plano por Linhas</h3>
-    <label>
-      Valor Pago Atual:
-      <input type="number" id="valor" min="0" step="0.01" placeholder="Ex: 210">
-    </label>
-    <label>
-      Total de GB:
-      <input type="number" id="gb" min="0" placeholder="Ex: 70">
-    </label>
-    <label>
-      Quantidade de Linhas:
-      <input type="number" id="linhas" min="1" value="1">
-    </label>
-    <button onclick="analyzeBestPlan()">ANALISAR MELHOR PLANO</button>
-    <div class="suggestions" id="suggestions"></div>
-  </div>
-
-  <div class="benefits">
-    <h3>Benefícios</h3>
-    <p>Internet ilimitada caso acabe seus GB ela não para.</p>
-    <p>Ligação para todo Brasil e qualquer operadora ilimitado.</p>
-    <p>SMS ilimitado.</p>
-    <p>Proteção de dados caso entre em site duvidoso.</p>
-    <p>REDE SOCIAL ILIMITADO /WhatsApp.</p>
-    <p>Conexão 5G em todo Brasil.</p>
-    <p>Também pode compartilhar sua conexão com amigos que use a Vivo também.</p>
-    <p>Realizar compra de aparelhos tipo telefone ou computadores com a gente na Vivo, com descontos de até 70%.</p>
-    <p>O chip sai de graça e mandamos pro seu endereço e não perde o número.</p>
-  </div>
-
+  </style>
   <script>
     function calculateTotal() {
       let total = 0;
@@ -183,10 +200,10 @@
       // Atualiza o título e a imagem de acordo com a seleção
       if (mdmQuantity > 0) {
         document.querySelector('h1').textContent = `Móvel Combo + ${mdmQuantity} MDM`;
-        document.querySelector('img.changeable').src = "movelsmartmdm.png";  // Caminho da imagem com MDM
+        document.querySelector('img.changeable').src = "../img/movelsmartmdm.png";  // Caminho da imagem com MDM
       } else {
         document.querySelector('h1').textContent = "Móvel Planos Smart Empresas";
-        document.querySelector('img.changeable').src = "movelsmart.png";  // Caminho da imagem sem MDM
+        document.querySelector('img.changeable').src = "../img/movelsmart.png";  // Caminho da imagem sem MDM
       }
 
       // Exibe o total de preço e o total de GB selecionados
@@ -195,123 +212,270 @@
     }
 
     document.addEventListener('change', calculateTotal);
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Móvel Planos Smart Empresas</h1>
 
-    // Lista de planos disponíveis para o analisador
-    const plans = [
-      { name: '6GB', gb: 6, price: 39.99 },
-      { name: '15GB', gb: 15, price: 54.99 },
-      { name: '20GB', gb: 20, price: 59.99 },
-      { name: '30GB', gb: 30, price: 69.99 },
-      { name: '40GB', gb: 40, price: 79.99 },
-      { name: '50GB', gb: 50, price: 89.99 },
-      { name: '100GB', gb: 100, price: 99.99 }
-    ];
+    <div class="section">
+      <h3>Planos Móveis</h3>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="39.99" data-gb="6"> 6GB - R$ 39,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="54.99" data-gb="15"> 15GB - R$ 54,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="59.99" data-gb="20"> 20GB - R$ 59,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="69.99" data-gb="30"> 30GB - R$ 69,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="79.99" data-gb="40"> 40GB - R$ 79,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="89.99" data-gb="50"> 50GB - R$ 89,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+      <div class="mobile-plan">
+        <label>
+          <input type="checkbox" value="99.99" data-gb="100"> 100GB - R$ 99,99 
+          <input type="number" min="0" value="0">
+          <span></span>
+        </label>
+      </div>
+    </div>
 
-    // Função para agrupar e resumir uma combinação (ex: "2 linha(s) de 6GB + 1 linha(s) de 100GB")
-    function summarizeCombination(comb) {
-      const summary = {};
-      comb.forEach(plan => {
-        if (!summary[plan.name]) {
-          summary[plan.name] = { count: 0, price: plan.price, gb: plan.gb };
-        }
-        summary[plan.name].count++;
-      });
-      const parts = [];
-      for (const key in summary) {
-        const item = summary[key];
-        parts.push(`${item.count} linha(s) de ${key} (R$ ${item.price.toFixed(2)} c/ ${item.gb}GB)`);
-      }
-      return parts.join(' + ');
+    <div class="section">
+      <h3>Adicionar MDM</h3>
+      <label>
+        <input type="number" id="mdm-quantity" value="0" min="0"> Quantidade de MDM (+ R$ 5 cada)
+      </label>
+    </div>
+
+    <div class="section">
+      <h3>Adicionais</h3>
+      <label>
+        <input type="checkbox" id="additional1" value="10.00" data-gb="10">
+        10GB + Redes sociais 
+      </label>
+      <label>
+        <input type="checkbox" id="additional2" value="10">
+        10GB + streaming \YouTube
+      </label>
+    </div>
+
+    <h2 id="totalPrice">Preço Total: R$ 0,00</h2>
+    <h3 id="totalGB">Total de GB: 0GB</h3>
+  </div>
+
+  <!-- Imagem que será alterada conforme a seleção de MDM -->
+  <img class="changeable" src="../img/movelsmart.png" alt="Móvel Planos Smart Empresas" style="max-width:50%; display:block; margin:20px auto;">
+  
+<br>
+<br>
+
+    <div class="analyzer">
+        <h3>Gerar Plano por Linhas</h3>
+        <label>
+            Valor Pago Atual:
+            <input type="number" id="valor" min="0" step="0.01" placeholder="Ex: 210">
+        </label>
+        <label>
+            Total de GB:
+            <input type="number" id="gb" min="0" placeholder="Ex: 70">
+        </label>
+        <label>
+            Quantidade de Linhas:
+            <input type="number" id="linhas" min="1" value="1">
+        </label>
+
+        <!-- Caixa de texto para senha -->
+        <label>
+            Desconto Supervisor:
+            <input type="password" id="supervisor-password" placeholder="Digite a senha">
+        </label>
+
+        <button onclick="analyzeBestPlan()">ANALISAR MELHOR PLANO</button>
+        <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <div class="benefits">
+        <h3>Benefícios</h3>
+    <p>Internet ilimitada caso acabe seus GB ela não para.</p>
+    <p>Ligação para todo Brasil e qualquer operadora ilimitado.</p>
+    <p>SMS ilimitado.</p>
+    <p>Proteção de dados caso entre em site duvidoso.</p>
+    <p>REDE SOCIAL ILIMITADO /WhatsApp.</p>
+    <p>Conexão 5G em todo Brasil.</p>
+    <p>Também pode compartilhar sua conexão com amigos que use a Vivo também.</p>
+    <p>Realizar compra de aparelhos tipo telefone ou computadores com a gente na Vivo, com descontos de até 70%.</p>
+    <p>O chip sai de graça e mandamos pro seu endereço e não perde o número.</p>
+    </div>
+
+    <script>
+        // Lista de planos existentes
+        const plans = [
+            { name: '6GB', gb: 6, price: 39.99 },
+            { name: '15GB', gb: 15, price: 54.99 },
+            { name: '20GB', gb: 20, price: 59.99 },
+            { name: '30GB', gb: 30, price: 69.99 },
+            { name: '40GB', gb: 40, price: 79.99 },
+            { name: '50GB', gb: 50, price: 89.99 },
+            { name: '100GB', gb: 100, price: 99.99 }
+        ];
+
+        // Função para adicionar o plano de 1GB por R$ 29,99 caso a senha seja correta
+// Função para adicionar o plano de desconto e redirecionar dependendo da senha
+function addDiscountPlan() {
+    const password = document.getElementById('supervisor-password').value;
+    
+    if (password === '17172025') { // Senha para adicionar plano de 1GB
+        plans.push({ name: '1GB', gb: 1, price: 29.99 }); // Adiciona o plano de 1GB por R$ 29,99
+        alert('Plano de 1GB adicionado com sucesso!');
+    } else if (password === 'bruna2025') { // Nova senha para redirecionamento
+        window.location.href = 'equipebruna2025.html'; // Redireciona para a página específica
     }
+}
 
-    // Função recursiva para gerar combinações (com repetição) para n linhas.
-    // Usamos o parâmetro "start" para evitar repetições (ordem não importa)
-    function getCombinations(n, start = 0, current = [], all = []) {
-      if (current.length === n) {
-        all.push([...current]);
-        return;
-      }
-      for (let i = start; i < plans.length; i++) {
-        current.push(plans[i]);
-        getCombinations(n, i, current, all);
-        current.pop();
-      }
-      return all;
-    }
+// Função para analisar o melhor plano
+function analyzeBestPlan() {
+    addDiscountPlan(); // Chama a função para adicionar plano de desconto ou redirecionar
 
-    function analyzeBestPlan() {
-      const valor = parseFloat(document.getElementById('valor').value) || 0;
-      const gbTotal = parseInt(document.getElementById('gb').value) || 0;
-      const linhas = parseInt(document.getElementById('linhas').value) || 1;
-      const suggestionsElem = document.getElementById('suggestions');
-      suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
+    const valor = parseFloat(document.getElementById('valor').value) || 0;
+    const gbTotal = parseInt(document.getElementById('gb').value) || 0;
+    const linhas = parseInt(document.getElementById('linhas').value) || 1;
+    const suggestionsElem = document.getElementById('suggestions');
+    suggestionsElem.innerHTML = ''; // Limpa sugestões anteriores
 
-      if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
+    if (valor <= 0 || gbTotal <= 0 || linhas < 1) {
         suggestionsElem.innerHTML = '<p>Preencha todos os campos corretamente.</p>';
         return;
-      }
+    }
 
-      // Gerar todas as combinações para o número de linhas informado
-      const allCombinations = getCombinations(linhas);
+    // Gerar todas as combinações para o número de linhas informado
+    const allCombinations = getCombinations(linhas);
 
-      // Mapeia as combinações para seus totais: custo e GB
-      const validCombs = allCombinations.map(comb => {
-        const totalCost = comb.reduce((acc, p) => acc + p.price, 0);
-        const totalGb = comb.reduce((acc, p) => acc + p.gb, 0);
+    // Mapeia as combinações para seus totais: custo e GB
+    const validCombs = allCombinations.map(comb => {
+        let totalCost = comb.reduce((acc, p) => acc + p.price, 0);
+        let totalGb = comb.reduce((acc, p) => acc + p.gb, 0);
+
+        // Adiciona R$ 5 em cada linha como valor adicional
+        totalCost += 5 * linhas;
+
         return { combination: comb, totalCost, totalGb };
-      })
-        // Filtra as combinações que não ultrapassam o valor informado e que oferecem GB total ≥ o desejado
-        .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
+    })
+    .filter(item => item.totalCost <= valor && item.totalGb >= gbTotal);
 
-      if (validCombs.length === 0) {
+    if (validCombs.length === 0) {
         suggestionsElem.innerHTML = '<p>Não foi possível encontrar uma combinação que atenda os requisitos.</p>';
         return;
-      }
-
-      // 1. Plano mais econômico: combinação com o menor custo total
-      let candidateEconomico = validCombs.reduce((min, curr) =>
-        (curr.totalCost < min.totalCost ? curr : min)
-      );
-
-      // 2. Plano com mais GB: combinação com o maior total de GB
-      let candidateMaisGb = validCombs.reduce((max, curr) =>
-        (curr.totalGb > max.totalGb ? curr : max)
-      );
-
-      // 3. Plano um pouco mais barato e com mais GB:
-      //    Dentre as combinações com custo maior que o plano mais econômico e com GB total maior que o plano mais econômico,
-      //    escolhe a de menor custo.
-      let candidatesMediano = validCombs.filter(c =>
-        c.totalCost > candidateEconomico.totalCost && c.totalGb > candidateEconomico.totalGb
-      );
-      let candidateMediano = null;
-      if (candidatesMediano.length > 0) {
-        candidateMediano = candidatesMediano.reduce((min, curr) =>
-          (curr.totalCost < min.totalCost ? curr : min)
-        );
-      } else {
-        // Se não houver, utiliza o candidato com mais GB (desde que seja diferente do econômico)
-        candidateMediano = candidateMaisGb !== candidateEconomico ? candidateMaisGb : candidateEconomico;
-      }
-
-      // Exibe os resultados
-      let html = '<h3>Sugestões:</h3>';
-
-      html += `<div class='suggestion-box'><strong>Plano mais econômico:</strong><br>`;
-      html += summarizeCombination(candidateEconomico.combination);
-      html += `<br>Total: R$ ${candidateEconomico.totalCost.toFixed(2)} | GB Total: ${candidateEconomico.totalGb}GB</div>`;
-
-      html += `<div class='suggestion-box'><strong>Plano com mais GB:</strong><br>`;
-      html += summarizeCombination(candidateMaisGb.combination);
-      html += `<br>Total: R$ ${candidateMaisGb.totalCost.toFixed(2)} | GB Total: ${candidateMaisGb.totalGb}GB</div>`;
-
-      html += `<div class='suggestion-box'><strong>Plano um pouco mais barato e com mais GB:</strong><br>`;
-      html += summarizeCombination(candidateMediano.combination);
-      html += `<br>Total: R$ ${candidateMediano.totalCost.toFixed(2)} | GB Total: ${candidateMediano.totalGb}GB</div>`;
-
-      suggestionsElem.innerHTML = html;
     }
-  </script>
-</body>
 
+    // Limita o número de sugestões a 3
+    validCombs.slice(0, 3);
+
+    // Exibe os resultados
+    let html = '<h3>Sugestões:</h3>';
+    validCombs.slice(0, 3).forEach(item => {
+        html += `<div class='suggestion-box'><strong>Plano sugerido:</strong><br>`;
+        html += summarizeCombination(item.combination);
+        html += `<br>Total: R$ ${(item.totalCost).toFixed(2)} | GB Total: ${item.totalGb}GB</div>`;
+    });
+
+    suggestionsElem.innerHTML = html;
+}
+
+
+    // Função recursiva para gerar combinações (com repetição)
+    function getCombinations(n, start = 0, current = [], all = []) {
+        if (current.length === n) {
+            all.push([...current]);
+            return;
+        }
+        for (let i = start; i < plans.length; i++) {
+            current.push(plans[i]);
+            getCombinations(n, i, current, all);
+            current.pop();
+        }
+        return all;
+    }
+
+    // Função para agrupar as combinações em formato legível
+    function summarizeCombination(comb) {
+        const summary = {};
+        comb.forEach(plan => {
+            if (!summary[plan.name]) {
+                summary[plan.name] = { count: 0, price: plan.price, gb: plan.gb };
+            }
+            summary[plan.name].count++;
+        });
+        const parts = [];
+        for (const key in summary) {
+            const item = summary[key];
+            parts.push(`${item.count} linha(s) de ${key} (R$ ${item.price.toFixed(2)} c/ ${item.gb}GB)`);
+        }
+
+        // Adiciona "MDM" no final de cada combinação
+        parts.push("MDM (+R$ 5 por linha)");
+
+        return parts.join(' + ');
+    }
+</script>
+
+
+	    <footer>
+        <p id="fraseMotivacional"></p>
+    </footer>
+
+    <script>
+        const frases = [
+            "Acredite em você e todo o resto virá naturalmente.",
+            "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
+            "Não importa quão devagar você vá, desde que você não pare.",
+            "A única maneira de fazer um ótimo trabalho é amar o que você faz.",
+            "Você é capaz de coisas incríveis!",
+            "A persistência é o caminho do êxito.",
+	    "O NÃO você já tem, vá em embusca do SIM ass:Jonas"
+        ];
+
+        let indice = 0;
+
+        function mudarFrase() {
+            const fraseElement = document.getElementById('fraseMotivacional');
+            fraseElement.textContent = frases[indice];
+            indice = (indice + 1) % frases.length; // Muda para a próxima frase
+        }
+
+        // Muda a frase a cada 5 segundos
+        setInterval(mudarFrase, 5000);
+        mudarFrase(); // Chama a função uma vez para mostrar a primeira frase imediatamente
+    </script>
+</body>
 </html>
