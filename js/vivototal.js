@@ -1,7 +1,7 @@
 // Constantes para valores fixos
 const MDM_PRICE = 6.90;
 const DISCOUNTED_500MEGA_PRICE = 89.99;
-const REGULAR_500MEGA_PRICE = 99.99;
+const REGULAR_500MEGA_PRICE = 89.99;
 
 // Elementos do DOM
 const elements = {
