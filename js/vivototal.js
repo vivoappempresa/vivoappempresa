@@ -1,7 +1,7 @@
 // Constantes para valores fixos
 const MDM_PRICE = 6.90;
-const DISCOUNTED_500MEGA_PRICE = 89.99;
-const REGULAR_500MEGA_PRICE = 89.99;
+const DISCOUNTED_600MEGA_PRICE = 89.99;
+const REGULAR_600MEGA_PRICE = 89.99;
 
 // Elementos do DOM
 const elements = {
@@ -18,8 +18,8 @@ const elements = {
 function calculateBroadbandPrice(broadband) {
     if (!broadband) return 0;
 
-    if (broadband.value === "99.99" && (elements.mobile || elements.unlimited.checked)) {
-        return elements.unlimited.checked ? REGULAR_500MEGA_PRICE : DISCOUNTED_500MEGA_PRICE;
+    if (broadband.value === "89.99" && (elements.mobile || elements.unlimited.checked)) {
+        return elements.unlimited.checked ? REGULAR_600MEGA_PRICE : DISCOUNTED_600MEGA_PRICE;
     }
     return parseFloat(broadband.value);
 }
