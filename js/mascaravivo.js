@@ -13,6 +13,9 @@ async function consultarCNPJ() {
     }
 
     try {
+        // Mostra mensagem de carregamento
+        resultDiv.innerHTML = "Buscando informações...";
+
         // Chama a API
         const response = await fetch(`https://open.cnpja.com/office/${cnpj}`);
 
@@ -36,10 +39,12 @@ async function consultarCNPJ() {
             document.getElementById('CIDADE').value = address.city;
             document.getElementById('UF').value = address.state;
             document.getElementById('CEP').value = address.zip;
-            document.getElementById('EMAIL').value = data.emails.length > 0 ? data.emails[0].address : 'Não informado';
+            document.getElementById('EMAIL').value = Array.isArray(data.emails) && data.emails.length > 0 ? data.emails[0].address : 'Não informado';
 
             // Preenche o campo de quadro de sócios
-            document.getElementById('REPRESENTANTELEGAL').value = data.company.members[0]?.person.name || 'Não informado';
+            document.getElementById('REPRESENTANTELEGAL').value = data.company.members?.[0]?.person.name || 'Não informado';
+
+            resultDiv.innerHTML = "Dados carregados com sucesso!";
         } else {
             resultDiv.innerHTML = "CNPJ não encontrado ou status não ativo.";
         }
@@ -49,79 +54,68 @@ async function consultarCNPJ() {
     }
 }
 
-
-// Função para copiar as informações, incluindo o plano e a quantidade
-function copiarInformacao() {
+// Função para gerar a máscara de informações
+function gerarMascara() {
     const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
 
     let maskInfo = '';
-
-    // Incluindo os outros campos na ordem desejada
     fields.forEach(field => {
-        // Pular a inserção do PLANO depois da OPERADORA
-        if (field === 'OPERADORA') {
-            const value = document.getElementById(field)?.value || 'Não informado';
-            maskInfo += `${field}: ${value}\n`;
+        const value = document.getElementById(field)?.value || 'Não informado';
+        maskInfo += `${field}: ${value}\n`;
 
-            // Incluindo as informações do plano com a quantidade entre OPERADORA e VALOR
+        if (field === 'OPERADORA') {
+            // Incluindo os planos e quantidades
             const planoSelects = document.querySelectorAll('.plano-select');
             const quantidadeInputs = document.querySelectorAll('.quantidade-input');
 
             planoSelects.forEach((select, index) => {
-                const plano = select.value;
-                const quantidade = quantidadeInputs[index].value;
+                const plano = select.value || 'Não informado';
+                const quantidade = quantidadeInputs[index]?.value || '0';
                 maskInfo += `PLANO: ${plano} - Quantidade: ${quantidade}\n`;
             });
-        } else {
-            const value = document.getElementById(field)?.value || 'Não informado';
-            maskInfo += `${field}: ${value}\n`;
         }
     });
 
-    // Copiar o texto para a área de transferência
-    navigator.clipboard.writeText(maskInfo).then(() => {
-        alert("Informações copiadas com sucesso!");
-    }).catch(err => {
-        alert("Erro ao copiar as informações.");
-    });
+    return maskInfo;
 }
 
-// Função para baixar a máscara com as informações, incluindo o plano e a quantidade
+// Função para copiar informações
+function copiarInformacao() {
+    navigator.clipboard.writeText(gerarMascara())
+        .then(() => alert("Informações copiadas com sucesso!"))
+        .catch(() => alert("Erro ao copiar as informações."));
+}
+
+// Função para baixar informações e limpar a página
 function baixarMascara() {
-    const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
-
-    let maskInfo = '';
-
-    // Incluindo os outros campos na ordem desejada
-    fields.forEach(field => {
-        // Pular a inserção do PLANO depois da OPERADORA
-        if (field === 'OPERADORA') {
-            const value = document.getElementById(field)?.value || 'Não informado';
-            maskInfo += `${field}: ${value}\n`;
-
-            // Incluindo as informações do plano com a quantidade entre OPERADORA e VALOR
-            const planoSelects = document.querySelectorAll('.plano-select');
-            const quantidadeInputs = document.querySelectorAll('.quantidade-input');
-
-            planoSelects.forEach((select, index) => {
-                const plano = select.value;
-                const quantidade = quantidadeInputs[index].value;
-                maskInfo += `PLANO: ${plano} - Quantidade: ${quantidade}\n`;
-            });
-        } else {
-            const value = document.getElementById(field)?.value || 'Não informado';
-            maskInfo += `${field}: ${value}\n`;
-        }
-    });
-
-    // Criar e baixar o arquivo
-    const blob = new Blob([maskInfo], { type: 'text/plain' });
+    const blob = new Blob([gerarMascara()], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'mascara_cliente.txt';
     link.click();
+
+    limparCampos();
 }
 
+// Função para limpar todos os campos
+function limparCampos() {
+    const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
+
+    fields.forEach(field => {
+        const input = document.getElementById(field);
+        if (input) input.value = '';
+    });
+
+    const planoSelects = document.querySelectorAll('.plano-select');
+    const quantidadeInputs = document.querySelectorAll('.quantidade-input');
+    planoSelects.forEach(select => select.value = '');
+    quantidadeInputs.forEach(input => input.value = '');
+
+    const resultDiv = document.getElementById("result");
+    if (resultDiv) resultDiv.innerHTML = '';
+}
+
+// Frases motivacionais
 const frases = [
     "Acredite em você e todo o resto virá naturalmente.",
     "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
@@ -136,7 +130,7 @@ let indice = 0;
 function mudarFrase() {
     const fraseElement = document.getElementById('fraseMotivacional');
     fraseElement.textContent = frases[indice];
-    indice = (indice + 1) % frases.length; // Muda para a próxima frase
+    indice = (indice + 1) % frases.length;
 }
 
 // Muda a frase a cada 5 segundos
@@ -144,7 +138,7 @@ setInterval(mudarFrase, 5000);
 
 // Adiciona event listeners após o carregamento do DOM
 document.addEventListener('DOMContentLoaded', () => {
-    mudarFrase(); // Chama a função uma vez para mostrar a primeira frase imediatamente
+    mudarFrase(); // Mostra a primeira frase imediatamente
 
     document.getElementById('consultarCNPJButton').addEventListener('click', consultarCNPJ);
     document.getElementById('copiarInformacaoButton').addEventListener('click', copiarInformacao);
@@ -155,6 +149,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('irParaConsultaButton').addEventListener('click', () => {
         window.open('https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp', '_blank');
     });
-    // Adiciona a chamada inicial para mudarFrase no DOMContentLoaded
-    mudarFrase();
-}); 
+});
