@@ -14,7 +14,7 @@
     <!-- Balão do banco -->
     <div class="balão">
         <p>
-            BANCOS DISPONIVEL PARA DEBITO AUTOMATICO ITAU S/A | SANTANDER | COOB S/A | ESTES S/A | RISUL | SAFRA |
+            BANCOS DISPONÍVEIS PARA DÉBITO AUTOMÁTICO: ITAÚ S/A | SANTANDER | COOB S/A | ESTES S/A | RISUL | SAFRA |
             SICREDI S/A | INTER S/A | NUBANK
         </p>
     </div>
@@ -29,7 +29,7 @@
 
         <!-- Campo para inserir CNPJ -->
         <input type="text" id="cnpjInput" placeholder="Digite o CNPJ (ex: 07526557011659)" />
-        <button id="consultarCNPJButton">Pesquisar CNPJ</button>
+        <button id="consultarCNPJButton" type="button">Pesquisar CNPJ</button>
 
         <div id="result"></div>
 
@@ -38,23 +38,23 @@
             <button type="button" id="baixarMascaraButton">Baixar Máscara</button>
         </div>
 
-        <!-- Novo bloco com a frase e o botão -->
+        <!-- Link para consulta Receita -->
         <div id="consultaSituacaoCadastral">
             <p><a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
-                    target="_blank">verificar status obrigatorio</a></p>
-            <button id="irParaConsultaButton">Ir para consulta</button>
+                    target="_blank" rel="noopener noreferrer">Verificar status (obrigatório)</a></p>
+            <button id="irParaConsultaButton" type="button">Ir para consulta</button>
         </div>
 
-        <form id="mascaraForm">
+        <form id="mascaraForm" onsubmit="return false;">
             <!-- Dados da Empresa -->
             <label for="CNPJ">CNPJ:</label>
-            <input type="text" id="CNPJ" name="CNPJ" required>
+            <input type="text" id="CNPJ" name="CNPJ">
 
             <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
-            <input type="text" id="RAZAOSOCIAL" name="RAZAO_SOCIAL" required>
+            <input type="text" id="RAZAOSOCIAL" name="RAZAOSOCIAL">
 
             <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
-            <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTE_LEGAL">
+            <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTELEGAL">
 
             <label for="CPF">CPF:</label>
             <input type="text" id="CPF" name="CPF">
@@ -63,7 +63,7 @@
             <input type="text" id="RG" name="RG">
 
             <label for="EMAIL">E-MAIL:</label>
-            <input type="text" id="EMAIL" name="EMAIL" required>
+            <input type="text" id="EMAIL" name="EMAIL">
 
             <label for="TELEFONE">TEL DE CONTATO:</label>
             <input type="text" id="TELEFONE" name="TELEFONE">
@@ -72,7 +72,7 @@
             <input type="text" id="VENC" name="VENC">
 
             <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
-            <input type="text" id="NUMPORTABILIDADE" name="NUM_PORTABILIDADE">
+            <input type="text" id="NUMPORTABILIDADE" name="NUMPORTABILIDADE">
 
             <label for="MAILING">MAILING:</label>
             <input type="text" id="MAILING" name="MAILING">
@@ -80,11 +80,12 @@
             <label for="OPERADORA">OPERADORA:</label>
             <input type="text" id="OPERADORA" name="OPERADORA">
 
-            <!-- Novo campo para selecionar planos e quantidades -->
+            <!-- Campo de planos -->
             <label for="PLANO">PLANO:</label>
             <div id="plano-container">
                 <div class="plano-item">
                     <select name="plano[]" class="plano-select">
+                        <option value="">Selecione um plano</option>
                         <option value="SMART EMPRESA 6GB">SMART EMPRESA 6GB - R$ 44,99</option>
                         <option value="SMART EMPRESA 15GB">SMART EMPRESA 15GB - R$ 59,99</option>
                         <option value="SMART EMPRESA 20GB">SMART EMPRESA 20GB - R$ 64,99</option>
@@ -97,10 +98,10 @@
                         <option value="BANDA LARGA 1P 600Mega">BANDA LARGA 1P 600Mega - R$ 129,99</option>
                         <option value="BANDA LARGA 1P 700Mega">BANDA LARGA 1P 700Mega - R$ 139,99</option>
                         <option value="BANDA LARGA 1P 1 Giga">BANDA LARGA 1P 1 Giga - R$ 299,99</option>
-                        <option value="VVN ">VIVO VOZ NEGOCIO </option>
-                        <option value="TV BASIC ">TV 70 CANAIS - 119,99 BASIC </option>
-                        <option value="TV AVANÇADO ">TV 120 CANAIS - 164,99 AVANÇADO </option>
-                        <option value="TV COMPLETO ">TV 140 CANAIS - 289,99 COMPLETO </option>
+                        <option value="VVN">VIVO VOZ NEGOCIO</option>
+                        <option value="TV BASIC">TV 70 CANAIS - 119,99 BASIC</option>
+                        <option value="TV AVANÇADO">TV 120 CANAIS - 164,99 AVANÇADO</option>
+                        <option value="TV COMPLETO">TV 140 CANAIS - 289,99 COMPLETO</option>
                     </select>
                     <input type="number" name="quantidade[]" class="quantidade-input" placeholder="Quantidade" min="1"
                         value="1" />
@@ -110,18 +111,18 @@
             <label for="VALOR">VALOR:</label>
             <input type="text" id="VALOR" name="VALOR">
 
-            <!-- Dados para Entrega -->
+            <!-- Endereço -->
             <label for="LOGRADOURO">LOGRADOURO:</label>
             <input type="text" id="LOGRADOURO" name="LOGRADOURO">
 
-            <label for="NUMERO">NUMERO:</label>
+            <label for="NUMERO">NÚMERO:</label>
             <input type="text" id="NUMERO" name="NUMERO">
 
             <label for="COMPLEMENTO">COMPLEMENTO:</label>
             <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
 
             <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
-            <input type="text" id="PONTOREFERENCIA" name="PONTO_REFERENCIA">
+            <input type="text" id="PONTOREFERENCIA" name="PONTOREFERENCIA">
 
             <label for="BAIRRO">BAIRRO:</label>
             <input type="text" id="BAIRRO" name="BAIRRO">
@@ -132,7 +133,6 @@
             <label for="UF">UF:</label>
             <select id="UF" name="UF">
                 <option value="">Selecione</option>
-                <!-- Add all states as before -->
                 <option value="AC">AC</option>
                 <option value="AL">AL</option>
                 <option value="AP">AP</option>
@@ -160,7 +160,6 @@
                 <option value="SP">SP</option>
                 <option value="SE">SE</option>
                 <option value="TO">TO</option>
-                <!-- Other options... -->
             </select>
 
             <label for="CEP">CEP:</label>
@@ -169,6 +168,7 @@
 
     </div>
 
+    <!-- Inclui o JS atualizado -->
     <script src="../js/mascaravivo.js"></script>
 
     <footer>
