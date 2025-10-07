@@ -17,7 +17,7 @@ async function consultarCNPJ() {
         resultDiv.innerHTML = "Buscando informações...";
 
         // Chama a API
-        const response = await fetch(`https://open.cnpja.com/office/${cnpj}`);
+        const response = await fetch(`https://receitaws.com.br/v1/cnpj/${cnpj}`);
 
         if (!response.ok) {
             throw new Error("Erro ao buscar o CNPJ.");
