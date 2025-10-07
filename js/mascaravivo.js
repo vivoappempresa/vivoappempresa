@@ -1,13 +1,15 @@
+// Função para consultar CNPJ na API ReceitaWS
 async function consultarCNPJ() {
     let cnpj = document.getElementById("cnpjInput").value;
     const resultDiv = document.getElementById("result");
 
-    // Remove caracteres de pontuação do CNPJ
+    // Remove caracteres de pontuação do CNPJ (deixa só números)
     cnpj = cnpj.replace(/[^\d]/g, '');
 
-    // Verifica se o CNPJ tem o formato correto
-    if (!/^\d{14}$/.test(cnpj)) {
-        resultDiv.innerHTML = "Por favor, insira um CNPJ válido com 14 dígitos.";
+    // Verifica se o CNPJ tem o formato correto (14 dígitos)
+    const cnpjPattern = /^\d{14}$/;
+    if (!cnpjPattern.test(cnpj)) {
+        resultDiv.innerHTML = "<span style='color: orange;'>Por favor, insira um CNPJ válido com 14 dígitos.</span>";
         return;
     }
 
@@ -15,108 +17,114 @@ async function consultarCNPJ() {
         // Mostra mensagem de carregamento
         resultDiv.innerHTML = "Buscando informações...";
 
-        // 💡 ALTERAÇÃO 1: Usando o proxy CORS para evitar o bloqueio do navegador
+        // URL da API com proxy para evitar erro de CORS
         const url = `https://api.allorigins.win/raw?url=https://receitaws.com.br/v1/cnpj/${cnpj}`;
         const response = await fetch(url);
 
         if (!response.ok) {
-            // Se a resposta da rede não for bem-sucedida (ex: erro 429, 500)
-            throw new Error("Erro na rede ou limite de requisições excedido.");
+            throw new Error("Erro de rede ao buscar o CNPJ. A API pode estar fora do ar ou o limite de requisições foi atingido.");
         }
 
         const data = await response.json();
 
-        // 💡 ALTERAÇÃO 2: Verificando se a API retornou um erro específico
+        // Verifica se a API retornou uma mensagem de erro
         if (data.status === "ERROR") {
             throw new Error(data.message); // Ex: "CNPJ inválido"
         }
 
-        // 💡 ALTERAÇÃO 3: A verificação correta é pela propriedade "situacao"
+        // Verifica se a empresa está ativa
         if (data && data.situacao === "ATIVA") {
-            
-            // 💡 ALTERAÇÃO 4: Corrigindo o mapeamento dos campos para a estrutura da API
+            // Preenche os campos do formulário com os dados retornados
             document.getElementById('RAZAOSOCIAL').value = data.nome || 'Não informado';
             document.getElementById('CNPJ').value = data.cnpj || cnpj;
             document.getElementById('LOGRADOURO').value = data.logradouro || 'Não informado';
             document.getElementById('NUMERO').value = data.numero || 'Não informado';
-            document.getElementById('COMPLEMENTO').value = data.complemento || 'Não informado';
+            document.getElementById('COMPLEMENTO').value = data.complemento || '';
             document.getElementById('BAIRRO').value = data.bairro || 'Não informado';
             document.getElementById('CIDADE').value = data.municipio || 'Não informado';
-            document.getElementById('UF').value = data.uf || 'Não informado';
+            document.getElementById('UF').value = data.uf || '';
             document.getElementById('CEP').value = data.cep ? data.cep.replace(/[^\d]/g, '') : 'Não informado';
             document.getElementById('EMAIL').value = data.email || 'Não informado';
-            
-            // A API retorna um array de sócios (qsa), pegamos o primeiro
+            document.getElementById('TELEFONE').value = data.telefone || '';
+
+            // Pega o primeiro nome do quadro de sócios como Representante Legal
             document.getElementById('REPRESENTANTELEGAL').value = (data.qsa && data.qsa.length > 0) ? data.qsa[0].nome : 'Não informado';
 
             resultDiv.innerHTML = "<span style='color: green;'>✔ Dados carregados com sucesso!</span>";
         } else {
-            resultDiv.innerHTML = `CNPJ encontrado, mas com status: ${data.situacao}.`;
+            resultDiv.innerHTML = `<span style='color: orange;'>CNPJ encontrado, mas com situação: ${data.situacao}.</span>`;
         }
     } catch (error) {
-        // Exibe uma mensagem de erro mais detalhada
-        resultDiv.innerHTML = `<span style='color: red;'>❌ Erro ao buscar informações: ${error.message}</span>`;
+        resultDiv.innerHTML = `<span style='color: red;'>❌ Erro ao buscar informações: ${error.message}. Tente novamente.</span>`;
         console.error("Erro detalhado:", error);
     }
 }
 
-// Função para gerar a máscara de informações
+// Função para gerar a máscara de informações para cópia/download
 function gerarMascara() {
     const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
 
     let maskInfo = '';
     fields.forEach(field => {
-        const value = document.getElementById(field)?.value || 'Não informado';
+        const value = document.getElementById(field)?.value.trim() || 'Não informado';
         maskInfo += `${field}: ${value}\n`;
 
         if (field === 'OPERADORA') {
-            // Incluindo os planos e quantidades
             const planoSelects = document.querySelectorAll('.plano-select');
             const quantidadeInputs = document.querySelectorAll('.quantidade-input');
 
+            let hasPlan = false;
             planoSelects.forEach((select, index) => {
-                const plano = select.value || 'Não informado';
-                const quantidade = quantidadeInputs[index]?.value || '0';
-                maskInfo += `PLANO: ${plano} - Quantidade: ${quantidade}\n`;
+                const plano = select.value;
+                const quantidade = quantidadeInputs[index]?.value;
+                if (plano && quantidade > 0) {
+                    maskInfo += `PLANO: ${plano} - Quantidade: ${quantidade}\n`;
+                    hasPlan = true;
+                }
             });
+            if (!hasPlan) {
+                maskInfo += `PLANO: Não informado\n`;
+            }
         }
     });
 
     return maskInfo;
 }
 
-// Função para copiar informações
+// Função para copiar informações para a área de transferência
 function copiarInformacao() {
     navigator.clipboard.writeText(gerarMascara())
         .then(() => alert("Informações copiadas com sucesso!"))
         .catch(() => alert("Erro ao copiar as informações."));
 }
 
-// Função para baixar informações e limpar a página
+// Função para baixar as informações em um arquivo .txt
 function baixarMascara() {
-    const blob = new Blob([gerarMascara()], { type: 'text/plain' });
+    const blob = new Blob([gerarMascara()], {
+        type: 'text/plain'
+    });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'mascara_cliente.txt';
+    
+    const razaoSocial = document.getElementById('RAZAOSOCIAL')?.value.trim() || 'cliente';
+    const dataHoje = new Date().toISOString().slice(0, 10); // Formato AAAA-MM-DD
+    link.download = `mascara_${razaoSocial.replace(/ /g, '_')}_${dataHoje}.txt`;
+
     link.click();
+    URL.revokeObjectURL(link.href);
 
     limparCampos();
 }
 
-// Função para limpar todos os campos
+// Função para limpar todos os campos do formulário
 function limparCampos() {
-    const fields = ['CNPJ', 'RAZAOSOCIAL', 'REPRESENTANTELEGAL', 'CPF', 'RG', 'EMAIL', 'TELEFONE', 'VENC', 'NUMPORTABILIDADE', 'MAILING', 'OPERADORA', 'VALOR', 'LOGRADOURO', 'NUMERO', 'COMPLEMENTO', 'PONTOREFERENCIA', 'BAIRRO', 'CIDADE', 'UF', 'CEP'];
+    const form = document.getElementById('mascaraForm');
+    if(form) {
+        form.reset(); // Método mais eficiente para limpar formulários
+    }
 
-    fields.forEach(field => {
-        const input = document.getElementById(field);
-        if (input) input.value = '';
-    });
-
-    const planoSelects = document.querySelectorAll('.plano-select');
-    const quantidadeInputs = document.querySelectorAll('.quantidade-input');
-    planoSelects.forEach(select => select.value = '');
-    quantidadeInputs.forEach(input => input.value = '');
-
+    // Limpa campos que não estão no form (se houver) e a div de resultado
+    document.getElementById('cnpjInput').value = '';
     const resultDiv = document.getElementById("result");
     if (resultDiv) resultDiv.innerHTML = '';
 }
@@ -135,14 +143,16 @@ let indice = 0;
 
 function mudarFrase() {
     const fraseElement = document.getElementById('fraseMotivacional');
-    fraseElement.textContent = frases[indice];
-    indice = (indice + 1) % frases.length;
+    if (fraseElement) {
+        fraseElement.textContent = frases[indice];
+        indice = (indice + 1) % frases.length;
+    }
 }
 
 // Muda a frase a cada 5 segundos
 setInterval(mudarFrase, 5000);
 
-// Adiciona event listeners após o carregamento do DOM
+// Adiciona os "escutadores de eventos" aos botões após o carregamento completo da página
 document.addEventListener('DOMContentLoaded', () => {
     mudarFrase(); // Mostra a primeira frase imediatamente
 
