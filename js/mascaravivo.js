@@ -5,9 +5,8 @@ async function consultarCNPJ() {
     // Remove caracteres de pontuação do CNPJ
     cnpj = cnpj.replace(/[^\d]/g, '');
 
-    // Verifica se o CNPJ tem o formato correto (após remover a pontuação)
-    const cnpjPattern = /^\d{14}$/;
-    if (!cnpjPattern.test(cnpj)) {
+    // Verifica se o CNPJ tem o formato correto
+    if (!/^\d{14}$/.test(cnpj)) {
         resultDiv.innerHTML = "Por favor, insira um CNPJ válido com 14 dígitos.";
         return;
     }
@@ -16,41 +15,48 @@ async function consultarCNPJ() {
         // Mostra mensagem de carregamento
         resultDiv.innerHTML = "Buscando informações...";
 
-        // Chama a API
-        const response = await fetch(`https://receitaws.com.br/v1/cnpj/${cnpj}`);
+        // 💡 ALTERAÇÃO 1: Usando o proxy CORS para evitar o bloqueio do navegador
+        const url = `https://api.allorigins.win/raw?url=https://receitaws.com.br/v1/cnpj/${cnpj}`;
+        const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error("Erro ao buscar o CNPJ.");
+            // Se a resposta da rede não for bem-sucedida (ex: erro 429, 500)
+            throw new Error("Erro na rede ou limite de requisições excedido.");
         }
 
         const data = await response.json();
 
-        // Verifica se a empresa está ativa
-        if (data && data.status.text === "Ativa") {
-            const address = data.address;
+        // 💡 ALTERAÇÃO 2: Verificando se a API retornou um erro específico
+        if (data.status === "ERROR") {
+            throw new Error(data.message); // Ex: "CNPJ inválido"
+        }
 
-            // Preenche os campos da máscara com os dados
-            document.getElementById('RAZAOSOCIAL').value = data.company.name;
-            document.getElementById('CNPJ').value = cnpj;
-            document.getElementById('LOGRADOURO').value = address.street;
-            document.getElementById('NUMERO').value = address.number;
-            document.getElementById('COMPLEMENTO').value = address.details || 'Não informado';
-            document.getElementById('BAIRRO').value = address.district;
-            document.getElementById('CIDADE').value = address.city;
-            document.getElementById('UF').value = address.state;
-            document.getElementById('CEP').value = address.zip;
-            document.getElementById('EMAIL').value = Array.isArray(data.emails) && data.emails.length > 0 ? data.emails[0].address : 'Não informado';
+        // 💡 ALTERAÇÃO 3: A verificação correta é pela propriedade "situacao"
+        if (data && data.situacao === "ATIVA") {
+            
+            // 💡 ALTERAÇÃO 4: Corrigindo o mapeamento dos campos para a estrutura da API
+            document.getElementById('RAZAOSOCIAL').value = data.nome || 'Não informado';
+            document.getElementById('CNPJ').value = data.cnpj || cnpj;
+            document.getElementById('LOGRADOURO').value = data.logradouro || 'Não informado';
+            document.getElementById('NUMERO').value = data.numero || 'Não informado';
+            document.getElementById('COMPLEMENTO').value = data.complemento || 'Não informado';
+            document.getElementById('BAIRRO').value = data.bairro || 'Não informado';
+            document.getElementById('CIDADE').value = data.municipio || 'Não informado';
+            document.getElementById('UF').value = data.uf || 'Não informado';
+            document.getElementById('CEP').value = data.cep ? data.cep.replace(/[^\d]/g, '') : 'Não informado';
+            document.getElementById('EMAIL').value = data.email || 'Não informado';
+            
+            // A API retorna um array de sócios (qsa), pegamos o primeiro
+            document.getElementById('REPRESENTANTELEGAL').value = (data.qsa && data.qsa.length > 0) ? data.qsa[0].nome : 'Não informado';
 
-            // Preenche o campo de quadro de sócios
-            document.getElementById('REPRESENTANTELEGAL').value = data.company.members?.[0]?.person.name || 'Não informado';
-
-            resultDiv.innerHTML = "Dados carregados com sucesso!";
+            resultDiv.innerHTML = "<span style='color: green;'>✔ Dados carregados com sucesso!</span>";
         } else {
-            resultDiv.innerHTML = "CNPJ não encontrado ou status não ativo.";
+            resultDiv.innerHTML = `CNPJ encontrado, mas com status: ${data.situacao}.`;
         }
     } catch (error) {
-        resultDiv.innerHTML = "Erro ao buscar informações. Tente novamente.";
-        console.error(error);
+        // Exibe uma mensagem de erro mais detalhada
+        resultDiv.innerHTML = `<span style='color: red;'>❌ Erro ao buscar informações: ${error.message}</span>`;
+        console.error("Erro detalhado:", error);
     }
 }
 
