@@ -11,6 +11,7 @@
 
 <body>
 
+    <!-- Balão do banco -->
     <div class="balão">
         <p>
             BANCOS DISPONÍVEIS PARA DÉBITO AUTOMÁTICO: ITAÚ S/A | SANTANDER | COOB S/A | ESTES S/A | RISUL | SAFRA |
@@ -18,154 +19,156 @@
         </p>
     </div>
 
+    <!-- Botão Voltar -->
     <button class="back-button" id="voltarButton">
         <span class="arrow">&larr;</span> Voltar
     </button>
-    
-    <div id="form-container">
-        <div class="container">
-            <h1>Preenchimento de Dados</h1>
 
-            <input type="text" id="cnpjInput" placeholder="Digite o CNPJ (ex: 07526557011659)" />
-            <button id="consultarCNPJButton" type="button">Pesquisar CNPJ</button>
+    <div class="container">
+        <h1>Preenchimento de Dados</h1>
 
-            <div id="result"></div>
+        <!-- Campo para inserir CNPJ -->
+        <input type="text" id="cnpjInput" placeholder="Digite o CNPJ (ex: 07526557011659)" />
+        <button id="consultarCNPJButton" type="button">Pesquisar CNPJ</button>
 
-            <div class="actions">
-                <button type="button" id="copiarInformacaoButton">Copiar Informação</button>
-                <button type="button" id="baixarMascaraButton">Baixar Máscara</button>
-            </div>
+        <div id="result"></div>
 
-            <div id="consultaSituacaoCadastral">
-                <p><a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
-                        target="_blank" rel="noopener noreferrer">Verificar status (obrigatório)</a></p>
-                <button id="irParaConsultaButton" type="button">Ir para consulta</button>
-            </div>
-
-            <form id="mascaraForm" onsubmit="return false;">
-                <label for="CNPJ">CNPJ:</label>
-                <input type="text" id="CNPJ" name="CNPJ">
-
-                <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
-                <input type="text" id="RAZAOSOCIAL" name="RAZAOSOCIAL">
-
-                <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
-                <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTELEGAL">
-
-                <label for="CPF">CPF:</label>
-                <input type="text" id="CPF" name="CPF">
-
-                <label for="RG">RG:</label>
-                <input type="text" id="RG" name="RG">
-
-                <label for="EMAIL">E-MAIL:</label>
-                <input type="text" id="EMAIL" name="EMAIL">
-
-                <label for="TELEFONE">TEL DE CONTATO:</label>
-                <input type="text" id="TELEFONE" name="TELEFONE">
-
-                <label for="VENC">VENC:</label>
-                <input type="text" id="VENC" name="VENC">
-
-                <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
-                <input type="text" id="NUMPORTABILIDADE" name="NUMPORTABILIDADE">
-
-                <label for="MAILING">MAILING:</label>
-                <input type="text" id="MAILING" name="MAILING">
-
-                <label for="OPERADORA">OPERADORA:</label>
-                <input type="text" id="OPERADORA" name="OPERADORA">
-
-                <label for="PLANO">PLANO:</label>
-                <div id="plano-container">
-                    <div class="plano-item">
-                        <select name="plano[]" class="plano-select">
-                            <option value="">Selecione um plano</option>
-                            <option value="SMART EMPRESA 6GB">SMART EMPRESA 6GB - R$ 44,99</option>
-                            <option value="SMART EMPRESA 15GB">SMART EMPRESA 15GB - R$ 59,99</option>
-                            <option value="SMART EMPRESA 20GB">SMART EMPRESA 20GB - R$ 64,99</option>
-                            <option value="SMART EMPRESA 30GB">SMART EMPRESA 30GB - R$ 74,99</option>
-                            <option value="SMART EMPRESA 40GB">SMART EMPRESA 40GB - R$ 84,99</option>
-                            <option value="SMART EMPRESA 50GB">SMART EMPRESA 50GB - R$ 94,99</option>
-                            <option value="SMART EMPRESA 100GB">SMART EMPRESA 100GB - R$ 104,99</option>
-                            <option value="BANDA LARGA TOTAL 500Mega">BANDA LARGA TOTAL 500Mega - R$ 89,99</option>
-                            <option value="BANDA LARGA 1P 500Mega">BANDA LARGA 1P 500Mega - R$ 99,99</option>
-                            <option value="BANDA LARGA 1P 600Mega">BANDA LARGA 1P 600Mega - R$ 129,99</option>
-                            <option value="BANDA LARGA 1P 700Mega">BANDA LARGA 1P 700Mega - R$ 139,99</option>
-                            <option value="BANDA LARGA 1P 1 Giga">BANDA LARGA 1P 1 Giga - R$ 299,99</option>
-                            <option value="VVN">VIVO VOZ NEGOCIO</option>
-                            <option value="TV BASIC">TV 70 CANAIS - 119,99 BASIC</option>
-                            <option value="TV AVANÇADO">TV 120 CANAIS - 164,99 AVANÇADO</option>
-                            <option value="TV COMPLETO">TV 140 CANAIS - 289,99 COMPLETO</option>
-                        </select>
-                        <input type="number" name="quantidade[]" class="quantidade-input" placeholder="Quantidade" min="1"
-                            value="1" />
-                    </div>
-                </div>
-
-                <label for="VALOR">VALOR:</label>
-                <input type="text" id="VALOR" name="VALOR">
-
-                <label for="LOGRADOURO">LOGRADOURO:</label>
-                <input type="text" id="LOGRADOURO" name="LOGRADOURO">
-
-                <label for="NUMERO">NÚMERO:</label>
-                <input type="text" id="NUMERO" name="NUMERO">
-
-                <label for="COMPLEMENTO">COMPLEMENTO:</label>
-                <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
-
-                <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
-                <input type="text" id="PONTOREFERENCIA" name="PONTOREFERENCIA">
-
-                <label for="BAIRRO">BAIRRO:</label>
-                <input type="text" id="BAIRRO" name="BAIRRO">
-
-                <label for="CIDADE">CIDADE:</label>
-                <input type="text" id="CIDADE" name="CIDADE">
-
-                <label for="UF">UF:</label>
-                <select id="UF" name="UF">
-                    <option value="">Selecione</option>
-                    <option value="AC">AC</option> <option value="AL">AL</option> <option value="AP">AP</option>
-                    <option value="AM">AM</option> <option value="BA">BA</option> <option value="CE">CE</option>
-                    <option value="DF">DF</option> <option value="ES">ES</option> <option value="GO">GO</option>
-                    <option value="MA">MA</option> <option value="MT">MT</option> <option value="MS">MS</option>
-                    <option value="MG">MG</option> <option value="PA">PA</option> <option value="PB">PB</option>
-                    <option value="PR">PR</option> <option value="PE">PE</option> <option value="PI">PI</option>
-                    <option value="RJ">RJ</option> <option value="RN">RN</option> <option value="RS">RS</option>
-                    <option value="RO">RO</option> <option value="RR">RR</option> <option value="SC">SC</option>
-                    <option value="SP">SP</option> <option value="SE">SE</option> <option value="TO">TO</option>
-                </select>
-
-                <label for="CEP">CEP:</label>
-                <input type="text" id="CEP" name="CEP">
-            </form>
+        <div class="actions">
+            <button type="button" id="copiarInformacaoButton">Copiar Informação</button>
+            <button type="button" id="baixarMascaraButton">Baixar Máscara</button>
         </div>
-    </div> <div id="game-container" style="display: none;">
-        <div class="container">
-            <h1>Jogo da Velha Online</h1>
-            <div id="game-setup">
-                <p>Compartilhe a URL desta página com seu amigo para ele entrar na sala!</p>
-                <p>ID da Sala: <strong id="game-id-display"></strong></p>
-            </div>
-            <div id="game-board-container">
-                <h2 id="status-text">Aguardando oponente...</h2>
-                <div id="board">
-                    <div class="cell" data-index="0"></div><div class="cell" data-index="1"></div><div class="cell" data-index="2"></div>
-                    <div class="cell" data-index="3"></div><div class="cell" data-index="4"></div><div class="cell" data-index="5"></div>
-                    <div class="cell" data-index="6"></div><div class="cell" data-index="7"></div><div class="cell" data-index="8"></div>
-                </div>
-                <button id="reset-button">Nova Partida</button>
-                <button id="voltar-form-button">Voltar para o Formulário</button>
-            </div>
+
+        <!-- Link para consulta Receita -->
+        <div id="consultaSituacaoCadastral">
+            <p><a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
+                    target="_blank" rel="noopener noreferrer">Verificar status (obrigatório)</a></p>
+            <button id="irParaConsultaButton" type="button">Ir para consulta</button>
         </div>
+
+        <form id="mascaraForm" onsubmit="return false;">
+            <!-- Dados da Empresa -->
+            <label for="CNPJ">CNPJ:</label>
+            <input type="text" id="CNPJ" name="CNPJ">
+
+            <label for="RAZAOSOCIAL">RAZÃO SOCIAL:</label>
+            <input type="text" id="RAZAOSOCIAL" name="RAZAOSOCIAL">
+
+            <label for="REPRESENTANTELEGAL">REPRESENTANTE LEGAL:</label>
+            <input type="text" id="REPRESENTANTELEGAL" name="REPRESENTANTELEGAL">
+
+            <label for="CPF">CPF:</label>
+            <input type="text" id="CPF" name="CPF">
+
+            <label for="RG">RG:</label>
+            <input type="text" id="RG" name="RG">
+
+            <label for="EMAIL">E-MAIL:</label>
+            <input type="text" id="EMAIL" name="EMAIL">
+
+            <label for="TELEFONE">TEL DE CONTATO:</label>
+            <input type="text" id="TELEFONE" name="TELEFONE">
+
+            <label for="VENC">VENC:</label>
+            <input type="text" id="VENC" name="VENC">
+
+            <label for="NUMPORTABILIDADE">Num. PORTABILIDADE:</label>
+            <input type="text" id="NUMPORTABILIDADE" name="NUMPORTABILIDADE">
+
+            <label for="MAILING">MAILING:</label>
+            <input type="text" id="MAILING" name="MAILING">
+
+            <label for="OPERADORA">OPERADORA:</label>
+            <input type="text" id="OPERADORA" name="OPERADORA">
+
+            <!-- Campo de planos -->
+            <label for="PLANO">PLANO:</label>
+            <div id="plano-container">
+                <div class="plano-item">
+                    <select name="plano[]" class="plano-select">
+                        <option value="">Selecione um plano</option>
+                        <option value="SMART EMPRESA 6GB">SMART EMPRESA 6GB - R$ 44,99</option>
+                        <option value="SMART EMPRESA 15GB">SMART EMPRESA 15GB - R$ 59,99</option>
+                        <option value="SMART EMPRESA 20GB">SMART EMPRESA 20GB - R$ 64,99</option>
+                        <option value="SMART EMPRESA 30GB">SMART EMPRESA 30GB - R$ 74,99</option>
+                        <option value="SMART EMPRESA 40GB">SMART EMPRESA 40GB - R$ 84,99</option>
+                        <option value="SMART EMPRESA 50GB">SMART EMPRESA 50GB - R$ 94,99</option>
+                        <option value="SMART EMPRESA 100GB">SMART EMPRESA 100GB - R$ 104,99</option>
+                        <option value="BANDA LARGA TOTAL 500Mega">BANDA LARGA TOTAL 500Mega - R$ 89,99</option>
+                        <option value="BANDA LARGA 1P 500Mega">BANDA LARGA 1P 500Mega - R$ 99,99</option>
+                        <option value="BANDA LARGA 1P 600Mega">BANDA LARGA 1P 600Mega - R$ 129,99</option>
+                        <option value="BANDA LARGA 1P 700Mega">BANDA LARGA 1P 700Mega - R$ 139,99</option>
+                        <option value="BANDA LARGA 1P 1 Giga">BANDA LARGA 1P 1 Giga - R$ 299,99</option>
+                        <option value="VVN">VIVO VOZ NEGOCIO</option>
+                        <option value="TV BASIC">TV 70 CANAIS - 119,99 BASIC</option>
+                        <option value="TV AVANÇADO">TV 120 CANAIS - 164,99 AVANÇADO</option>
+                        <option value="TV COMPLETO">TV 140 CANAIS - 289,99 COMPLETO</option>
+                    </select>
+                    <input type="number" name="quantidade[]" class="quantidade-input" placeholder="Quantidade" min="1"
+                        value="1" />
+                </div>
+            </div>
+
+            <label for="VALOR">VALOR:</label>
+            <input type="text" id="VALOR" name="VALOR">
+
+            <!-- Endereço -->
+            <label for="LOGRADOURO">LOGRADOURO:</label>
+            <input type="text" id="LOGRADOURO" name="LOGRADOURO">
+
+            <label for="NUMERO">NÚMERO:</label>
+            <input type="text" id="NUMERO" name="NUMERO">
+
+            <label for="COMPLEMENTO">COMPLEMENTO:</label>
+            <input type="text" id="COMPLEMENTO" name="COMPLEMENTO">
+
+            <label for="PONTOREFERENCIA">PONTO DE REFERÊNCIA:</label>
+            <input type="text" id="PONTOREFERENCIA" name="PONTOREFERENCIA">
+
+            <label for="BAIRRO">BAIRRO:</label>
+            <input type="text" id="BAIRRO" name="BAIRRO">
+
+            <label for="CIDADE">CIDADE:</label>
+            <input type="text" id="CIDADE" name="CIDADE">
+
+            <label for="UF">UF:</label>
+            <select id="UF" name="UF">
+                <option value="">Selecione</option>
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AP">AP</option>
+                <option value="AM">AM</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MT">MT</option>
+                <option value="MS">MS</option>
+                <option value="MG">MG</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PR">PR</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RS">RS</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="SC">SC</option>
+                <option value="SP">SP</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+            </select>
+
+            <label for="CEP">CEP:</label>
+            <input type="text" id="CEP" name="CEP">
+        </form>
+
     </div>
 
-
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-database-compat.js"></script>
-    
+    <!-- Inclui o JS atualizado -->
     <script src="../js/mascaravivo.js"></script>
 
     <footer>
@@ -173,4 +176,5 @@
     </footer>
 
 </body>
+
 </html>
